@@ -8,6 +8,7 @@ services:
       - ./app:/app
       - /app/node_modules
       - ./pdfTemplates:/pdfTemplates
+      - ./cardTemplates:/cardTemplates
 
   build:
     profiles:

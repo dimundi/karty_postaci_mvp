@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "templateFile": "karta.pdf",
+  "clanId": "",
+  "clanName": "",
+  "logoFile": "",
+  "coordinateOrigin": "top-left",
+  "fields": []
+}

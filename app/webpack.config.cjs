@@ -2,6 +2,7 @@ const path = require('path')
 const fs = require('fs')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const { installCardCreator } = require('./scripts/card-creator-server.cjs')
 
 const templatesDirectory = '/pdfTemplates/klany'
 const archetypesDirectory = '/pdfTemplates/archetypy'
@@ -202,6 +203,7 @@ module.exports = (_environment, arguments_) => {
       if (!devServer.app) {
         throw new Error('Brak aplikacji Webpack Dev Server.')
       }
+      installCardCreator(devServer.app)
 
       devServer.app.get('/user', (_request, response) => {
         response.redirect('/#user')

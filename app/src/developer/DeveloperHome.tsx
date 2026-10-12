@@ -6,13 +6,9 @@ export default function DeveloperHome() {
         <span>Tryb deweloperski</span>
         <h1>Konfiguracja szablonów</h1>
         <div className="developer-options">
-          <a href="#dev-clans">
-            <strong>Karty klanów</strong>
-            <small>Aspekty, żar, talenty, mroczny instynkt i dary ciemności</small>
-          </a>
-          <a href="#dev-archetypes">
-            <strong>Karty archetypów</strong>
-            <small>Imię lub przydomek oraz nazwa klanu</small>
+          <a href="#dev-templates">
+            <strong>Kreator szablonów</strong>
+            <small>Projekty, warianty, warstwy i pola kart</small>
           </a>
         </div>
       </div>

@@ -1,0 +1,229 @@
+{
+  "version": 1,
+  "page": {
+    "format": "A4",
+    "width": 595.2756,
+    "height": 841.8898
+  },
+  "clanName": "Klany",
+  "clanId": "",
+  "layers": [
+    {
+      "id": "7c67b1cf-386d-421e-a3ca-4409afb150f1",
+      "number": 0,
+      "visible": true,
+      "locked": false,
+      "name": "tło"
+    },
+    {
+      "id": "9e048641-c826-4dcb-80f1-6e6ca443a23a",
+      "number": 1,
+      "name": "1",
+      "visible": true,
+      "locked": false
+    }
+  ],
+  "elements": [
+    {
+      "id": "f5802ab0-c767-4b96-b96f-f2771edb9228",
+      "layerId": "7c67b1cf-386d-421e-a3ca-4409afb150f1",
+      "kind": "image",
+      "source": "tlo.png",
+      "text": "",
+      "x": 0,
+      "y": 0,
+      "width": 595.2756,
+      "height": 841.8898,
+      "fontSize": 10,
+      "fieldType": "factionAspect",
+      "label": "",
+      "markStyle": "x",
+      "outline": false,
+      "variantIds": []
+    },
+    {
+      "id": "c43569cc-f889-47f3-88a3-d458fb8001f7",
+      "layerId": "9e048641-c826-4dcb-80f1-6e6ca443a23a",
+      "kind": "image",
+      "source": "soldaci_logo.png",
+      "text": "",
+      "x": 41,
+      "y": 174.04,
+      "width": 166.92,
+      "height": 62.06,
+      "fontSize": 10,
+      "fieldType": "factionAspect",
+      "label": "",
+      "markStyle": "x",
+      "outline": false,
+      "variantIds": [
+        "07d1b041-06eb-4a48-ad42-471c1f4daa17"
+      ]
+    },
+    {
+      "id": "2e086060-fe13-4499-b111-7e0bddeeedc3",
+      "layerId": "9e048641-c826-4dcb-80f1-6e6ca443a23a",
+      "kind": "image",
+      "source": "rytualisci_logo.png",
+      "text": "",
+      "x": 74.33,
+      "y": 170.94,
+      "width": 131.26,
+      "height": 63.23,
+      "fontSize": 10,
+      "fieldType": "factionAspect",
+      "label": "",
+      "markStyle": "x",
+      "outline": false,
+      "variantIds": [
+        "35236c81-434d-4cfb-8a52-aafad65050f4"
+      ]
+    },
+    {
+      "id": "7735beff-b22c-474f-9515-a184daf0c820",
+      "layerId": "9e048641-c826-4dcb-80f1-6e6ca443a23a",
+      "kind": "image",
+      "source": "hanzyci_logo.png",
+      "text": "",
+      "x": 58.64,
+      "y": 168.21,
+      "width": 149,
+      "height": 67.24,
+      "fontSize": 10,
+      "fieldType": "factionAspect",
+      "label": "",
+      "markStyle": "x",
+      "outline": false,
+      "variantIds": [
+        "ca0df2b0-db5c-4bc8-9b71-97f905f2cc43"
+      ]
+    },
+    {
+      "id": "faff8f29-33b0-4814-b70c-327ba96be272",
+      "layerId": "9e048641-c826-4dcb-80f1-6e6ca443a23a",
+      "kind": "image",
+      "source": "mechanisci_logo.png",
+      "text": "",
+      "x": 60,
+      "y": 170.25,
+      "width": 144.91,
+      "height": 63.11,
+      "fontSize": 10,
+      "fieldType": "factionAspect",
+      "label": "",
+      "markStyle": "x",
+      "outline": false,
+      "variantIds": [
+        "48bf6d91-c2ca-474f-b05f-22c49fcf5953"
+      ]
+    },
+    {
+      "id": "806ed927-ce18-47e5-a11e-953caa2082c4",
+      "layerId": "7c67b1cf-386d-421e-a3ca-4409afb150f1",
+      "kind": "field",
+      "source": "",
+      "text": "",
+      "x": 229.63,
+      "y": 231.68,
+      "width": 14,
+      "height": 14,
+      "fontSize": 10,
+      "fieldType": "darkInstinct",
+      "label": "",
+      "markStyle": "x",
+      "outline": true,
+      "variantIds": [
+        "07d1b041-06eb-4a48-ad42-471c1f4daa17"
+      ]
+    },
+    {
+      "id": "0a28d471-9c7a-466d-94bc-d606ab386af7",
+      "layerId": "7c67b1cf-386d-421e-a3ca-4409afb150f1",
+      "kind": "field",
+      "source": "",
+      "text": "",
+      "x": 432.92,
+      "y": 275.49,
+      "width": 14,
+      "height": 14,
+      "fontSize": 10,
+      "fieldType": "heat",
+      "label": "Żar",
+      "markStyle": "x",
+      "outline": false,
+      "variantIds": [
+        "35236c81-434d-4cfb-8a52-aafad65050f4"
+      ],
+      "definitionId": "zar"
+    },
+    {
+      "id": "a8df6f37-791e-4494-8dc8-b1c83d5d2eaf",
+      "layerId": "7c67b1cf-386d-421e-a3ca-4409afb150f1",
+      "kind": "field",
+      "source": "",
+      "text": "",
+      "x": 453.97,
+      "y": 275.42,
+      "width": 14,
+      "height": 14,
+      "fontSize": 10,
+      "fieldType": "heat",
+      "label": "Żar",
+      "markStyle": "x",
+      "outline": false,
+      "variantIds": [
+        "35236c81-434d-4cfb-8a52-aafad65050f4"
+      ],
+      "definitionId": "zar"
+    },
+    {
+      "id": "737faff6-e967-4fbe-a7ae-5ba9496b86b4",
+      "layerId": "7c67b1cf-386d-421e-a3ca-4409afb150f1",
+      "kind": "field",
+      "source": "",
+      "text": "",
+      "x": 476.6,
+      "y": 275.74,
+      "width": 14,
+      "height": 14,
+      "fontSize": 10,
+      "fieldType": "heat",
+      "label": "Żar",
+      "markStyle": "x",
+      "outline": false,
+      "variantIds": [
+        "35236c81-434d-4cfb-8a52-aafad65050f4"
+      ],
+      "definitionId": "zar"
+    }
+  ],
+  "kind": "clan",
+  "variants": [
+    {
+      "id": "07d1b041-06eb-4a48-ad42-471c1f4daa17",
+      "name": "Soldaci",
+      "clanId": "soldaci"
+    },
+    {
+      "id": "35236c81-434d-4cfb-8a52-aafad65050f4",
+      "name": "Rytualiści",
+      "clanId": "rytualisci"
+    },
+    {
+      "id": "48bf6d91-c2ca-474f-b05f-22c49fcf5953",
+      "name": "Mechaniści",
+      "clanId": "mechanisci"
+    },
+    {
+      "id": "ca0df2b0-db5c-4bc8-9b71-97f905f2cc43",
+      "name": "Hanzyci",
+      "clanId": "hanzyci"
+    }
+  ],
+  "view": {
+    "selectedVariantId": "35236c81-434d-4cfb-8a52-aafad65050f4",
+    "visibleVariantIds": [
+      "35236c81-434d-4cfb-8a52-aafad65050f4"
+    ]
+  }
+}

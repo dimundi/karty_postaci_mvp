@@ -1,7 +1,6 @@
 import { StrictMode, useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
-import ClanTemplateEditor from './editor/ClanTemplateEditor'
-import ArchetypeTemplateEditor from './editor/ArchetypeTemplateEditor'
+import TemplateCreator from './editor/LayeredTemplateEditor'
 import DeveloperHome from './developer/DeveloperHome'
 import StartPage from './start/StartPage'
 import UserClanEditor from './user/UserClanEditor'
@@ -24,12 +23,8 @@ function DevelopmentApp() {
     return <DeveloperHome />
   }
 
-  if (hash === '#dev-clans') {
-    return <ClanTemplateEditor />
-  }
-
-  if (hash === '#dev-archetypes') {
-    return <ArchetypeTemplateEditor />
+  if (hash === '#dev-templates' || hash === '#dev-clans' || hash === '#dev-archetypes') {
+    return <TemplateCreator />
   }
 
   if (hash === '#user') {

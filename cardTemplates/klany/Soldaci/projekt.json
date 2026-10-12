@@ -1,0 +1,52 @@
+{
+  "version": 1,
+  "page": {
+    "format": "A4",
+    "width": 595.2756,
+    "height": 841.8898
+  },
+  "clanName": "",
+  "clanId": "",
+  "layers": [
+    {
+      "id": "7c67b1cf-386d-421e-a3ca-4409afb150f1",
+      "number": 0,
+      "visible": true,
+      "locked": false
+    }
+  ],
+  "elements": [
+    {
+      "id": "f5802ab0-c767-4b96-b96f-f2771edb9228",
+      "layerId": "7c67b1cf-386d-421e-a3ca-4409afb150f1",
+      "kind": "image",
+      "source": "tlo.png",
+      "text": "",
+      "x": 0,
+      "y": 0,
+      "width": 595.2756,
+      "height": 841.8898,
+      "fontSize": 10,
+      "fieldType": "factionAspect",
+      "label": "",
+      "markStyle": "x",
+      "outline": false
+    },
+    {
+      "id": "c43569cc-f889-47f3-88a3-d458fb8001f7",
+      "layerId": "7c67b1cf-386d-421e-a3ca-4409afb150f1",
+      "kind": "image",
+      "source": "soldaci_logo.png",
+      "text": "",
+      "x": 41,
+      "y": 174.04,
+      "width": 166.92,
+      "height": 62.06,
+      "fontSize": 10,
+      "fieldType": "factionAspect",
+      "label": "",
+      "markStyle": "x",
+      "outline": false
+    }
+  ]
+}
