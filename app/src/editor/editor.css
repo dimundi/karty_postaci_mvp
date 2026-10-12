@@ -1,0 +1,293 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  overflow: hidden;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.editor-shell {
+  min-width: 1100px;
+  height: 100vh;
+  padding: 0;
+  color: #e8e0d0;
+  background: #191713;
+}
+
+.editor-header {
+  height: 76px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 12px 20px;
+  border-bottom: 1px solid #4b4337;
+  background: #252119;
+}
+
+.editor-header h1,
+.editor-panel h2 {
+  margin: 0;
+}
+
+.editor-header h1 {
+  font-size: 20px;
+}
+
+.editor-header p {
+  margin: 5px 0 0;
+  color: #b8ad99;
+  font-size: 13px;
+}
+
+.header-actions,
+.zoom-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-view-link {
+  color: #d8b36a;
+  text-decoration: none;
+}
+
+.user-view-link:hover {
+  text-decoration: underline;
+}
+
+.zoom-controls button,
+.zoom-controls select {
+  height: 36px;
+  border: 1px solid #806b43;
+  border-radius: 3px;
+  color: #f5efe3;
+  background: #2f291f;
+}
+
+.zoom-controls button {
+  width: 36px;
+  font-size: 20px;
+}
+
+.zoom-controls select {
+  min-width: 82px;
+  padding: 0 8px;
+}
+
+.editor-layout {
+  display: grid;
+  grid-template-columns: 270px minmax(560px, 1fr) 300px;
+  height: calc(100vh - 76px);
+}
+
+.editor-panel {
+  padding: 18px;
+  overflow-y: auto;
+  background: #252119;
+}
+
+.template-panel {
+  border-right: 1px solid #4b4337;
+}
+
+.properties-panel {
+  border-left: 1px solid #4b4337;
+}
+
+.editor-panel h2 {
+  margin: 10px 0 12px;
+  font-size: 15px;
+  color: #d8b36a;
+}
+
+.editor-panel label {
+  display: grid;
+  gap: 5px;
+  margin: 12px 0;
+  color: #b8ad99;
+  font-size: 12px;
+}
+
+.editor-panel input,
+.editor-panel select {
+  width: 100%;
+  padding: 8px 9px;
+  border: 1px solid #5d5445;
+  border-radius: 3px;
+  color: #f5efe3;
+  background: #171511;
+}
+
+.editor-panel button,
+.primary-button {
+  padding: 9px 12px;
+  border: 1px solid #806b43;
+  border-radius: 3px;
+  color: #f5efe3;
+  background: #4f4026;
+}
+
+.editor-panel button:disabled,
+.primary-button:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+.template-list,
+.field-list {
+  display: grid;
+  gap: 6px;
+}
+
+.template-button,
+.field-button {
+  display: grid;
+  gap: 3px;
+  width: 100%;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+
+.template-button small,
+.field-button small {
+  color: #b8ad99;
+}
+
+.template-button.active,
+.field-button.active {
+  border-color: #d8b36a;
+  background: #745c2f;
+}
+
+.pdf-workspace {
+  overflow: auto;
+  padding: 30px;
+  background: #34302a;
+}
+
+.pdf-page {
+  position: relative;
+  margin: 0 auto;
+  box-shadow: 0 8px 30px rgb(0 0 0 / 45%);
+  background: white;
+}
+
+.pdf-page canvas {
+  position: absolute;
+  inset: 0;
+}
+
+.placed-field {
+  position: absolute;
+  z-index: 2;
+  border: 1px solid #d10000;
+  color: #d10000;
+  background: rgb(255 255 255 / 38%);
+  user-select: none;
+  cursor: move;
+}
+
+.placed-field.selected {
+  outline: 2px solid #00a4e8;
+  outline-offset: 1px;
+}
+
+.check-field {
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.placed-marker {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+}
+
+.text-field {
+  padding: 3px;
+  font-size: 10px;
+  overflow: hidden;
+}
+
+.placed-field-label {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + 3px);
+  max-width: 190px;
+  padding: 2px 4px;
+  color: white;
+  background: rgb(0 0 0 / 78%);
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  pointer-events: none;
+}
+
+.resize-handle {
+  position: absolute;
+  right: -5px;
+  bottom: -5px;
+  width: 10px;
+  height: 10px;
+  border: 1px solid white;
+  background: #00a4e8;
+  cursor: nwse-resize;
+}
+
+.number-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 8px;
+}
+
+.checkbox-size-controls {
+  display: grid;
+  gap: 6px;
+  margin-top: 12px;
+  color: #b8ad99;
+  font-size: 12px;
+}
+
+.automatic-field-name {
+  margin: 12px 0;
+  color: #d8b36a;
+}
+
+.checkbox-size-controls > div {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.checkbox-size-controls button {
+  padding: 7px 5px;
+}
+
+.checkbox-size-controls button.active {
+  border-color: #d8b36a;
+  background: #745c2f;
+}
+
+.danger-button {
+  width: 100%;
+  margin-top: 12px;
+  border-color: #9d4a42 !important;
+  background: #652d29 !important;
+}

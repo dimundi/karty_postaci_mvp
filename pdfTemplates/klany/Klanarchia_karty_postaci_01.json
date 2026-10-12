@@ -1,0 +1,204 @@
+{
+  "version": 1,
+  "templateFile": "Klanarchia_karty_postaci_01.pdf",
+  "clanId": "soldaci",
+  "logoFile": "logo-soldaci.svg",
+  "clanName": "Soldaci",
+  "coordinateOrigin": "top-left",
+  "fields": [
+    {
+      "id": "factionAspect-1791584548670-721f76f307c998",
+      "type": "factionAspect",
+      "markStyle": "x",
+      "label": "odważne serce",
+      "x": 215.2,
+      "y": 202,
+      "width": 10,
+      "height": 10
+    },
+    {
+      "id": "factionAspect-1791584595901-4336fd04afc3d",
+      "type": "factionAspect",
+      "markStyle": "x",
+      "label": "Zastraszający wygląd",
+      "x": 281.5,
+      "y": 199.5,
+      "width": 14,
+      "height": 14
+    },
+    {
+      "id": "factionAspect-1791584736882-3a4b05be494f88",
+      "type": "factionAspect",
+      "markStyle": "x",
+      "label": "dobrze się czuje w tłumie",
+      "x": 214.9,
+      "y": 214.9,
+      "width": 10,
+      "height": 10
+    },
+    {
+      "id": "factionAspect-1791584759219-5c71e97a9e3d7",
+      "type": "factionAspect",
+      "markStyle": "x",
+      "label": "naprawdę mocny łeb",
+      "x": 322.4,
+      "y": 214.8,
+      "width": 10,
+      "height": 10
+    },
+    {
+      "id": "factionAspect-1791584788231-8048a7b88c77e",
+      "type": "factionAspect",
+      "markStyle": "x",
+      "label": "Niewyparzona gęba",
+      "x": 259,
+      "y": 228.6,
+      "width": 10,
+      "height": 10
+    },
+    {
+      "id": "factionAspect-1791584803786-65bb6c149a47d",
+      "type": "factionAspect",
+      "markStyle": "x",
+      "label": "więź ze zwięrzętami",
+      "x": 345.4,
+      "y": 228.3,
+      "width": 10,
+      "height": 10
+    },
+    {
+      "id": "factionAspect-1791584821310-c983c4fc4cbf5",
+      "type": "factionAspect",
+      "markStyle": "x",
+      "label": "natchniony pieśniarz",
+      "x": 276,
+      "y": 241.4,
+      "width": 10,
+      "height": 10
+    },
+    {
+      "id": "factionAspect-1791584842076-4d5f9275777b1",
+      "type": "factionAspect",
+      "markStyle": "x",
+      "label": "szelmowski uśmiech",
+      "x": 215.8,
+      "y": 255.5,
+      "width": 10,
+      "height": 10
+    },
+    {
+      "id": "factionAspect-1791584856676-036bc71f7f86d",
+      "type": "factionAspect",
+      "markStyle": "x",
+      "label": "twardy jak skała",
+      "x": 304.8,
+      "y": 255.2,
+      "width": 10,
+      "height": 10
+    },
+    {
+      "id": "heat-1791584869980-f1f9a108b2f65",
+      "type": "heat",
+      "markStyle": "x",
+      "label": "Żar 1",
+      "x": 442.1,
+      "y": 256.2,
+      "width": 14,
+      "height": 14,
+      "order": 1
+    },
+    {
+      "id": "darkGift-1791585073324-cf75de3b2e4b58",
+      "type": "darkGift",
+      "label": "Dary ciemności",
+      "x": 50,
+      "y": 643.3,
+      "width": 241.4,
+      "height": 129.9,
+      "fontSize": 10
+    },
+    {
+      "id": "heat-1791585091350-918a752099715",
+      "type": "heat",
+      "markStyle": "x",
+      "label": "Żar 2",
+      "x": 459.7,
+      "y": 256.2,
+      "width": 14,
+      "height": 14,
+      "order": 2
+    },
+    {
+      "id": "heat-1791585096163-e3f2403a4b5b1",
+      "type": "heat",
+      "markStyle": "x",
+      "label": "Żar 3",
+      "x": 475,
+      "y": 256.2,
+      "width": 14,
+      "height": 14,
+      "order": 3
+    },
+    {
+      "id": "darkInstinct-1791585103794-e24e3b05b7d028",
+      "type": "darkInstinct",
+      "markStyle": "x",
+      "label": "Mroczny instynkt 1",
+      "x": 391.5,
+      "y": 777.4,
+      "width": 18,
+      "height": 18,
+      "order": 1
+    },
+    {
+      "id": "darkInstinct-1791585109219-1f77e1468f7d8",
+      "type": "darkInstinct",
+      "markStyle": "x",
+      "label": "Mroczny instynkt 2",
+      "x": 415.7,
+      "y": 777,
+      "width": 18,
+      "height": 18,
+      "order": 2
+    },
+    {
+      "id": "darkInstinct-1791585113852-bb282ece5c1f28",
+      "type": "darkInstinct",
+      "markStyle": "x",
+      "label": "Mroczny instynkt 3",
+      "x": 438.5,
+      "y": 776.7,
+      "width": 18,
+      "height": 18,
+      "order": 3
+    },
+    {
+      "id": "talent-1791585128221-81e52ee92ed05",
+      "type": "talent",
+      "markStyle": "v",
+      "label": "Przerażająca broń",
+      "x": 29.6,
+      "y": 291.4,
+      "width": 14,
+      "height": 14
+    },
+    {
+      "id": "talent-1791590047996-65056c028fc678",
+      "type": "talent",
+      "label": "Krwawy spluwacz",
+      "x": 213.3,
+      "y": 292.6,
+      "width": 14,
+      "height": 14
+    },
+    {
+      "id": "talent-1791590073571-88e308a251a5a",
+      "type": "talent",
+      "label": "Szpanerskie ozdoby",
+      "x": 394.4,
+      "y": 291.4,
+      "width": 14,
+      "height": 14
+    }
+  ]
+}

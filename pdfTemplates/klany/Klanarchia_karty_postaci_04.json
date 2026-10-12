@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "templateFile": "Klanarchia_karty_postaci_04.pdf",
+  "clanId": "rytualisci",
+  "logoFile": "logo-rytualisci.svg",
+  "clanName": "Rytualiści",
+  "coordinateOrigin": "top-left",
+  "fields": []
+}

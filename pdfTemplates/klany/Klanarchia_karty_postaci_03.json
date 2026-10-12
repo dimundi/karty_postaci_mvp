@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "templateFile": "Klanarchia_karty_postaci_03.pdf",
+  "clanId": "hanzyci",
+  "logoFile": "logo-hanza.svg",
+  "clanName": "Hanzyci",
+  "coordinateOrigin": "top-left",
+  "fields": []
+}

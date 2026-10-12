@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "templateFile": "Klanarchia_karty_postaci_02.pdf",
+  "clanId": "mechanisci",
+  "logoFile": "logo-mechanisci.svg",
+  "clanName": "Mechaniści",
+  "coordinateOrigin": "top-left",
+  "fields": []
+}

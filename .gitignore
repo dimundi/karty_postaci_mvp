@@ -1,0 +1,32 @@
+# Zależności i pliki generowane
+node_modules/
+/app/dist/
+/build/
+*.tsbuildinfo
+coverage/
+.cache/
+*.log
+
+# Lokalne zmienne środowiskowe
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Ustawienia lokalnego edytora i systemu
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~
+
+# Lokalne widoki i pamięć podręczna Obsidiana
+/klanarchiaDoc/.obsidian/workspace.json
+/klanarchiaDoc/.obsidian/workspace-mobile.json
+/klanarchiaDoc/.obsidian/cache/
+
+# Robocze zrzuty podglądu
+/editor-preview-*.png

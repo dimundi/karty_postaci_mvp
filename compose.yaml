@@ -1,0 +1,22 @@
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./app:/app
+      - /app/node_modules
+      - ./pdfTemplates:/pdfTemplates
+
+  build:
+    profiles:
+      - tools
+    build:
+      context: .
+    command: npm run build -- --output-path /build
+    volumes:
+      - ./app:/app
+      - /app/node_modules
+      - ./build:/build
+      - ./pdfTemplates:/pdfTemplates

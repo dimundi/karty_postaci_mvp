@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "templateFile": "Klanarchia_karty_postaci_05.pdf",
+  "archetypeName": "Egzorcysta",
+  "coordinateOrigin": "top-left",
+  "fields": [
+    {
+      "id": "characterName",
+      "type": "characterName",
+      "label": "Imię lub przydomek",
+      "x": 236.3,
+      "y": 50.1,
+      "width": 157.6,
+      "height": 18,
+      "fontSize": 10
+    },
+    {
+      "id": "clanName",
+      "type": "clanName",
+      "label": "Nazwa klanu",
+      "x": 407.8,
+      "y": 50.6,
+      "width": 152.5,
+      "height": 18.6,
+      "fontSize": 10
+    }
+  ]
+}
