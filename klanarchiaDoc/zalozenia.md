@@ -1,4 +1,12 @@
-# Założenia
+# MVP — Edytor kart postaci Klanarchii
+
+Budujemy MVP, czyli minimalną działającą wersję aplikacji. Zostanie ona pokazana publiczności. Zakres rozwijamy etapami, a funkcje przygotowane do pokazu dopracowujemy możliwie najlepiej: czytelny polski interfejs, stabilne działanie i poprawny eksport PDF.
+
+## Założenia
+
+Wymagania do realizacji po MVP: [[wymagania-uzytkownika]].
+
+Docelowy podział na budowanie szablonów z HTML i edycję postaci na PDF: [[budowanie-szablonow-i-edytor]].
 
 - Nazwa aplikacji: **Edytor kart postaci do gry RPG Klanarchia**.
 - Prosta aplikacja webowa w React.
@@ -6,6 +14,10 @@
 - Projekt budujemy za pomocą Webpacka.
 - Tworzenie i uzupełnianie karty postaci do gry RPG **Klanarchia**.
 - Eksport karty do PDF.
+- Aplikacja pozostaje edytorem kart postaci. Efektem pracy jest zwykły PDF albo interaktywny PDF.
+- Użytkownik wybiera rodzaj PDF-u przy eksporcie.
+- Zwykły PDF ma utrwalone dane i zaznaczenia. Interaktywny PDF pozwala zmieniać udostępnione pola formularza po eksporcie.
+- Wybór rodzaju eksportu jest do wdrożenia. Obecny eksport tworzy interaktywny PDF.
 - Szablony kart będą dostarczone jako gotowe tła w PDF.
 - Zostaną dostarczone przykładowe szablony kart klanu i archetypu oraz lista nanoszonych pól.
 - Aplikacja umieści tekst i zaznaczenia w ustalonych miejscach szablonu.
