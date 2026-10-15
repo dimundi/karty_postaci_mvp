@@ -60,3 +60,6 @@
   .talent-pair { grid-template-columns: minmax(0, 1fr); gap: 0; }
   .talent-editor-title { align-items: start; flex-direction: column; }
 }
+
+.talent-library .talent-flag { flex-direction: row; align-items: center; gap: 8px; }
+.talent-library .talent-flag input { width: 18px; height: 18px; accent-color: #d1ad71; }

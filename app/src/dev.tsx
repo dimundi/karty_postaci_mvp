@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import TemplateCreator from './editor/LayeredTemplateEditor'
 import DeveloperHome from './developer/DeveloperHome'
 import TalentLibrary from './developer/TalentLibrary'
+import TalentTemplateCreator from './developer/TalentTemplateCreator'
 import StartPage from './start/StartPage'
 import UserClanEditor from './user/UserClanEditor'
 import './index.css'
@@ -26,6 +27,10 @@ function DevelopmentApp() {
 
   if (hash === '#dev-talents') {
     return <TalentLibrary />
+  }
+
+  if (hash === '#dev-talent-templates') {
+    return <TalentTemplateCreator />
   }
 
   if (hash === '#dev-templates' || hash === '#dev-clans' || hash === '#dev-archetypes') {

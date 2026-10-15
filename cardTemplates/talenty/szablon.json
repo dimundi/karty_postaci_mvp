@@ -1,0 +1,18 @@
+{
+  "schemaVersion": 2,
+  "page": {
+    "width": 185.67,
+    "height": 101.76
+  },
+  "padding": 7,
+  "statusHeight": 13,
+  "iconGap": 4,
+  "textGap": 4,
+  "fontSize": 9,
+  "minFontSize": 6,
+  "lineHeight": 1.12,
+  "autoFit": true,
+  "color": "#181818",
+  "flavorColor": "#403466",
+  "background": "#ffffff"
+}

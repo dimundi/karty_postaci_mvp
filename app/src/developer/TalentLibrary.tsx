@@ -10,6 +10,7 @@ type Talent = {
   group: string
   subgroup: string | null
   code: string | null
+  isDarkGift: boolean
 }
 type Library = { schemaVersion: number; talents: Talent[]; revision: string }
 type ImportRow = { talent: Talent; action: 'add' | 'update' | 'unchanged' }
@@ -177,6 +178,8 @@ export default function TalentLibrary() {
                 <label>Kod<input readOnly value={draft.code || ''} placeholder="Zostanie nadany przy wysyłce" /></label>
               </div>
               <p className="talent-muted">Grupa i podgrupa służą wyłącznie do zarządzania talentami.</p>
+              <label className="talent-flag"><input type="checkbox" checked={draft.isDarkGift} onChange={(e) => patch({ isDarkGift: e.target.checked })} />Dar Ciemności — pokaż ikonę</label>
+              <p className="talent-muted">Flaga jest niezależna od grupy. Wszystkie talenty korzystają ze <a href="#dev-talent-templates" onClick={(e) => { if (busy || !canLeave()) e.preventDefault() }}>wspólnego szablonu HTML</a>.</p>
               <div className="talent-actions">
                 <button type="submit" className="talent-primary" disabled={!dirty}>Zapisz talent</button>
                 <button type="button" disabled={!dirty} onClick={() => { if (canLeave()) { setDraft(saved || null); setError('') } }}>Odrzuć zmiany</button>

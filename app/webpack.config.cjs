@@ -4,6 +4,7 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { installCardCreator } = require('./scripts/card-creator-server.cjs')
 const { installTalents } = require('./scripts/talents-server.cjs')
+const { installTalentTemplates } = require('./scripts/talent-templates-server.cjs')
 
 const templatesDirectory = '/pdfTemplates/klany'
 const archetypesDirectory = '/pdfTemplates/archetypy'
@@ -206,6 +207,7 @@ module.exports = (_environment, arguments_) => {
       }
       installCardCreator(devServer.app)
       installTalents(devServer.app)
+      installTalentTemplates(devServer.app)
 
       devServer.app.get('/user', (_request, response) => {
         response.redirect('/#user')

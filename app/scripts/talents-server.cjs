@@ -14,6 +14,7 @@ function validateTalent(value, requireId = true) {
   if (!value || typeof value !== 'object') throw new Error('Nieprawidłowy talent.')
   if (!Number.isInteger(value.usesPerMission) || value.usesPerMission < 0 || value.usesPerMission > 3) throw new Error('Liczba użyć musi być liczbą całkowitą od 0 do 3.')
   if (value.code !== null && (typeof value.code !== 'string' || !CODE.test(value.code))) throw new Error('Nieprawidłowy kod talentu.')
+  if (value.isDarkGift !== undefined && typeof value.isDarkGift !== 'boolean') throw new Error('Flaga Daru Ciemności musi mieć wartość tak lub nie.')
   return {
     ...(requireId ? { id: text(value.id, 'ID', 100, true) } : {}),
     name: text(value.name, 'nazwa', 300, true),
@@ -23,6 +24,7 @@ function validateTalent(value, requireId = true) {
     group: text(value.group, 'grupa', 200, true),
     subgroup: value.subgroup === null ? null : text(value.subgroup, 'podgrupa', 200) || null,
     code: value.code,
+    isDarkGift: value.isDarkGift ?? false,
   }
 }
 function validateLibrary(library) {
@@ -77,7 +79,7 @@ function planImport(library, incoming) {
     if (existing && used.has(existing.id)) throw new Error('Kilka wierszy wskazuje ten sam istniejący talent.')
     if (existing) used.add(existing.id)
     if (existing?.code && talent.code && existing.code !== talent.code) throw new Error('Import nie może zmienić nadanego kodu talentu.')
-    const next = { ...talent, id: existing?.id || randomUUID(), code: existing?.code || talent.code }
+    const next = { ...talent, id: existing?.id || randomUUID(), code: existing?.code || talent.code, isDarkGift: existing?.isDarkGift ?? talent.isDarkGift }
     const action = !existing ? 'add' : JSON.stringify(validateTalent(existing)) === JSON.stringify(validateTalent(next)) ? 'unchanged' : 'update'
     return { talent: next, action }
   })

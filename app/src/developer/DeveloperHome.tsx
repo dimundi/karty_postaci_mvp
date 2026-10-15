@@ -10,6 +10,10 @@ export default function DeveloperHome() {
             <strong>Kreator szablonów</strong>
             <small>Projekty, warianty, warstwy i pola kart</small>
           </a>
+          <a href="#dev-talent-templates">
+            <strong>Kreator szablonów talentów</strong>
+            <small>Wygląd kart talentów i podgląd danych</small>
+          </a>
           <a href="#dev-talents">
             <strong>Przegląd i import talentów</strong>
             <small>Wewnętrzna lista, edycja tekstowa i import XLS</small>

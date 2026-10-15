@@ -33,7 +33,7 @@ Moduł Workshop do zarządzania zbiorem talentów dostępnych tylko dla określo
 
 ## Struktura JSON talentu
 
-Wewnętrzny plik `cardTemplates/talenty/talenty.json` zawiera wersję formatu i listę talentów:
+Wewnętrzny plik: `cardTemplates/talenty/talenty.json`. Poniżej obowiązująca struktura z jednym wspólnym szablonem HTML.
 
 ```json
 {
@@ -45,6 +45,7 @@ Wewnętrzny plik `cardTemplates/talenty/talenty.json` zawiera wersję formatu i 
       "flavorDescription": "Opis fabularny talentu.",
       "description": "Opis działania talentu.",
       "usesPerMission": 3,
+      "isDarkGift": true,
       "group": "Dary Ciemności",
       "subgroup": null,
       "code": null
@@ -64,12 +65,16 @@ Przykładowe teksty nie definiują nowego talentu ani zasad gry.
 | `flavorDescription` | Opis fabularny. Pusty tekst, jeśli go brak. |
 | `description` | Opis działania talentu. |
 | `usesPerMission` | Liczba całkowita od `0` do `3`, odpowiadająca liczbie kwadratów na karcie. |
+| `isDarkGift` | Flaga logiczna. `true` oznacza Dar Ciemności i włącza jego ikonę w HTML; `false` wyłącza ikonę. Niezależna od grupy i podgrupy. |
 | `group` | Grupa do zarządzania talentami. Dla obecnego zbioru: `Dary Ciemności`. |
 | `subgroup` | Podgrupa do zarządzania talentami. Dla obecnego zbioru: `null`, czyli brak podgrupy. |
 | `code` | Kod nadawany przy wysyłce, zgodny z opisanym niżej formatem. Wcześniej `null`. |
 
 - Grupa i podgrupa służą wyłącznie do zarządzania talentami. Nie są zasadami gry ani treścią talentu w wiadomości i PDF-ie.
+- Wszystkie talenty korzystają z jednego [[Workshop/kreator-szablonow-talentow|szablonu HTML]], który interpretuje ich parametry. Nie używamy pola `templateTypeId`.
+- Kolejne opcje i flagi dopiszemy po ustaleniu ich znaczenia. Nie wyprowadzamy ich z nazwy grupy.
 - XLS nadal ma pięć ustalonych kolumn. Grupę `Dary Ciemności` i brak podgrupy ustawiamy przy imporcie tego zbioru.
+- XLS nie ma kolumny `isDarkGift`. Import zachowuje flagę istniejącego talentu; nowy talent otrzymuje `false`. Flagę ustawiamy osobno w edytorze, nie na podstawie grupy.
 - Kolumna „Kod” odpowiada polu `code`. Nie zastępuje wewnętrznego `id`.
 - Adresy e-mail, powiązania odbiorców i statusy wysyłki zapisujemy osobno, poza JSON-em talentów.
 

@@ -8,6 +8,8 @@ Adres: [Przegląd i import talentów](http://localhost:8080/#dev-talents). Wejś
 - Lista początkowa zawiera 19 talentów z PDF-a, w grupie `Dary Ciemności`, bez podgrup i kodów.
 - Edytor pracuje na JSON-ie. Nie zmienia źródłowego XLS-a.
 - Edytujemy nazwę, oba opisy, liczbę użyć, grupę i podgrupę. Kod jest tylko do odczytu.
+- Edytujemy również flagi talentu, na razie `isDarkGift`. Flaga Daru Ciemności jest niezależna od grupy. Wszystkie talenty korzystają z jednego [[Workshop/kreator-szablonow-talentow|szablonu HTML]].
+- Checkbox „Dar Ciemności — pokaż ikonę” zapisuje flagę razem z talentem. Nie ma wyboru typu szablonu.
 - Wyszukiwanie obejmuje nazwę, opisy i kod. Filtry obejmują grupę i podgrupę.
 - Zapisujemy przyciskiem „Zapisz talent”. Przełączenie talentu z niezapisanymi zmianami wymaga potwierdzenia ich odrzucenia.
 - „Odśwież listę” pobiera aktualny stan pliku.
@@ -23,6 +25,7 @@ Adres: [Przegląd i import talentów](http://localhost:8080/#dev-talents). Wejś
 - Talent rozpoznajemy po kodzie. Gdy kod nie wskazuje istniejącego talentu, sprawdzamy nazwę, grupę i podgrupę.
 - Porównanie nazw, grup i podgrup pomija wielkość liter oraz spacje na początku i końcu.
 - Wewnętrzne ID zostaje zachowane. Nowy rekord otrzymuje UUID.
+- Import nie przypisuje typu szablonu. Zachowuje istniejącą flagę `isDarkGift`. Nowy talent z pięciokolumnowego XLS-a otrzymuje `false`; flagę można później zmienić w edytorze, niezależnie od grupy.
 - Nadany kod zostaje zachowany również wtedy, gdy komórka kodu jest pusta. Inny niepusty kod dla tego samego talentu blokuje import.
 - Zmiana nazwy talentu bez kodu w arkuszu spowoduje dodanie nowego rekordu. Nazwę istniejącego talentu najlepiej zmieniać w edytorze.
 - Duplikaty, konflikty kodów, formuły i nieprawidłowa liczba użyć blokują import.

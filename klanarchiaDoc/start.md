@@ -19,6 +19,7 @@ Projekt ma dwa podstawowe interfejsy.
 Moduły:
 
 - Kreator szablonów.
+- Kreator szablonów talentów.
 - Przegląd i import talentów.
 - Edytor talentów.
 - Talenty ekskluzywne.
@@ -40,6 +41,7 @@ Moduły:
 ### Workshop
 
 - [[Workshop/kreator-szablonow|Kreator szablonów]].
+- [[Workshop/kreator-szablonow-talentow|Kreator szablonów talentów]].
 - [[Workshop/przeglad-i-import-talentow|Przegląd i import talentów]].
 - [[Workshop/edytor-talentow|Edytor talentów]].
 - [[Workshop/talenty_ekskluzyne|Talenty ekskluzywne]].

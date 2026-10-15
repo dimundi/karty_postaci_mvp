@@ -34,3 +34,7 @@ Desktop.ini
 # Kopia i plik tymczasowy wewnętrznej listy talentów
 /cardTemplates/talenty/talenty.json.bak
 /cardTemplates/talenty/talenty.json.tmp
+/cardTemplates/talenty/szablon.json.bak
+/cardTemplates/talenty/szablon.json.tmp
+/cardTemplates/szablony-talentow/*.json.bak
+/cardTemplates/szablony-talentow/*.json.tmp
