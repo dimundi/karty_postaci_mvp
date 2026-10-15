@@ -37,7 +37,7 @@ export default function StartPage({ development }: StartPageProps) {
 
                 {development ? (
                     <a className="developer-switch" href="#dev">
-                        Przełącz na tryb deweloperski
+                        Przejdź do WORKSHOP
                     </a>
                 ) : null}
 

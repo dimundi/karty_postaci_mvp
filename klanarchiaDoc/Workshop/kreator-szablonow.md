@@ -1,6 +1,6 @@
-# Budowanie szablonów i edytor postaci
+# Workshop — Kreator szablonów
 
-Docelowo pracę dzielimy na dwa etapy. HTML jest źródłem układu karty. Edytor postaci korzysta z wygenerowanego szablonu PDF.
+Przygotowujemy szablony dla [[Portal/edytor-kart-postaci]]. Wejście: [Workshop](http://localhost:8080/#dev) → Kreator szablonów.
 
 ## Etap 1 — Budowanie szablonu karty
 
@@ -14,7 +14,7 @@ Docelowo pracę dzielimy na dwa etapy. HTML jest źródłem układu karty. Edyto
 - Format strony jest stały: A4 w orientacji pionowej, 210 × 297 mm.
 - Warstwy otrzymują domyślne nazwy „0”, „1” itd. Nazwa nie określa kolejności i nie zmienia się przy przesuwaniu. Kolejność nakładania wynika z listy: najwyższa warstwa jest na jej górze. Nazwę edytujemy dwukrotnym kliknięciem; zapisuje się w JSON. Każda warstwa mieści wiele elementów; można zmieniać kolejność warstw, ukrywać je i blokować.
 - Kreator definiuje cały szablon: format strony, tło, ozdobniki, stałe teksty, wygląd i rozmieszczenie pól.
-- Wynikiem działania kreatora jest PDF oraz JSON z definicjami pól. W obecnej wersji gotowy PDF jest wejściem, a kreator zapisuje tylko JSON.
+- Wynikiem działania kreatora jest PDF oraz JSON z definicjami pól. Gotowy PDF jako wejście dotyczył wcześniejszego rozwiązania: [[Workshop/starszy-edytor-pol]]. Obecny kreator generuje HTML, PDF i JSON.
 - Nowy sposób budowania sprawdzamy najpierw na jednej karcie.
 
 ## Warianty
@@ -52,49 +52,9 @@ Docelowo pracę dzielimy na dwa etapy. HTML jest źródłem układu karty. Edyto
 - Zapis definicji aktualizuje powiązane pola w otwartym kreatorze. Inne projekty odczytują aktualne ustawienia przy otwarciu i eksporcie.
 - Odczyt własnych definicji w aplikacji użytkownika pozostaje do wdrożenia.
 
-## Talenty — do wdrożenia
-
-- Powstanie osobny kreator talentów do tworzenia i edycji ich treści oraz zapisu we wspólnej bazie JSON.
-- Kreator talentów pozwoli tworzyć własne listy talentów i eksportować je do PDF.
-- Talent zawiera nazwę, opis fabularny, test i atrybuty. Atrybuty ustalimy w trakcie pracy na materiałach użytkownika.
-- Talent wyświetlamy w prostokątnej ramce o stałym rozmiarze. Wymiary i układ ramki definiujemy globalnie.
-- W kreatorze kart pojawi się przycisk „Talent”. Użytkownik wskaże talent na liście i umieści go na karcie w gotowej ramce.
-- Cała ramka talentu jest jednym obiektem. Projekt karty zapisuje odwołanie do talentu oraz pozycję, warstwę i warianty obiektu; treść pochodzi ze wspólnej bazy.
-- Źródło i sposób importu treści talentów pozostają do ustalenia.
-
-## Etap 2 — Edytor postaci
-
-- To działanie aplikacji użytkownika, a nie część kreatora szablonów.
-- Edytor wczytuje PDF i konfigurację pól wygenerowane w etapie 1.
-- Użytkownik uzupełnia dane postaci i zaznaczenia.
-- Przy eksporcie wybiera zwykły lub interaktywny PDF.
-- Zwykły PDF utrwala dane i zaznaczenia.
-- Interaktywny PDF zawiera edytowalne pola formularza z wartościami wstępnie ustawionymi w edytorze.
-- Dane postaci są oddzielone od układu karty. Pola są powiązane przez stałe identyfikatory.
-
-## Tło i interaktywność w Roll20
-
-- Pustą kartę PDF można zamienić na PNG i użyć jako tła karty w Roll20.
-- Tło zapewnia wygląd. Na nim umieszczamy pola HTML powiązane z atrybutami Roll20, które umożliwiają edycję i zapis danych.
-- Sam obraz nie zapewnia interaktywności.
-- Na początek wystarczą pola do wypełniania. Przyciski rzutów i automatyczne obliczenia można dodać później.
-- Nie trzeba odtwarzać ozdobników w HTML, jeśli znajdują się już na tle.
-
-## Wersje językowe
-
-- Jeden szablon logiczny może obsługiwać PL i EN, ze wspólnymi identyfikatorami pól.
-- Jeśli napisy są częścią tła, potrzebne są osobne tła PL i EN. Wybór języka przełącza tło i etykiety, zachowując dane postaci.
-- Jeśli napisy są tekstem HTML, można użyć wspólnego tła bez napisów i tłumaczeń w JSON.
-- Konfiguracje pozycji pól mogą być osobne dla języków, jeśli układy kart się różnią.
-
-## PDF do profesjonalnego druku
-
-- Wykonalny jest eksport PDF z CMYK, właściwym profilem ICC i odpowiednią rozdzielczością obrazów.
-- Można przygotować osobny eksport dla drukarni, uwzględniający jej wymagania dotyczące profilu, spadów i standardu PDF/X.
-- W eksporcie do druku warto zachować wektorowe teksty i linie. PNG może służyć jako tło dla Roll20 i podglądu.
-- Obecny eksport nie zapewnia jeszcze przygotowania pliku do profesjonalnego druku. Narzędzia i parametry ustalimy przed wdrożeniem.
-
 ## Obsługa uniwersalnego kreatora szablonów
+
+- Interfejs kreatora zachowuje brązowo-złotą kolorystykę: ciemne brązowe panele i złote wyróżnienia.
 
 - Obszar roboczy wykorzystuje całą wysokość okna. Domyślny widok „Cała strona” pokazuje całą kartę; dostępne są też dopasowanie do szerokości i ręczne powiększenie.
 - Przybliżanie i oddalanie: przyciski `+` i `−` lub `Ctrl + kółko myszy` nad obszarem roboczym. Zoom kółkiem skupia się na miejscu pod kursorem. Samo kółko przewija kartę.
@@ -125,14 +85,29 @@ Docelowo pracę dzielimy na dwa etapy. HTML jest źródłem układu karty. Edyto
 - Przed użyciem karty w aplikacji użytkownika kopiujemy `karta.pdf` i `pola.json` do `pdfTemplates/klany` lub `pdfTemplates/archetypy`, zależnie od typu karty, pod wspólną nazwą bazową. W skopiowanym JSON-ie ustawiamy `templateFile` na nazwę skopiowanego PDF-u.
 - Test kreatora: `docker compose exec app node scripts/verify-card-creator.cjs`. Sprawdza obsługę w przeglądarce, zapis i odczyt, warstwy, eksport HTML i PDF A4 oraz konfigurację pól.
 
-## Stan obecny i dalsze prace
+## Tło i interaktywność w Roll20
 
-- Na obecnym etapie bazę danych aplikacji budujemy jako pliki JSON.
-- Docelowo przeniesiemy dane z JSON do bazy danych.
-- Zachowujemy stałe identyfikatory i oddzielamy odczyt oraz zapis danych od interfejsu i eksportu, aby ułatwić późniejszą migrację.
+- Pustą kartę PDF można zamienić na PNG i użyć jako tła karty w Roll20.
+- Tło zapewnia wygląd. Na nim umieszczamy pola HTML powiązane z atrybutami Roll20, które umożliwiają edycję i zapis danych.
+- Sam obraz nie zapewnia interaktywności.
+- Na początek wystarczą pola do wypełniania. Przyciski rzutów i automatyczne obliczenia można dodać później.
+- Nie trzeba odtwarzać ozdobników w HTML, jeśli znajdują się już na tle.
 
-- Aplikacja użytkownika nadal korzysta z PDF-ów i konfiguracji JSON w `pdfTemplates`.
-- Uniwersalny kreator buduje projekty i warianty szablonów warstwowych oraz generuje HTML, PDF i konfigurację pól. Konfiguracja pochodzi z tych samych pozycji co HTML.
-- Eksport do Roll20, tłumaczenia i przygotowanie PDF-u dla drukarni pozostają do wdrożenia.
+## Wersje językowe
 
-Powiązane: [[zalozenia]], [[wymagania-uzytkownika]].
+- Jeden szablon logiczny może obsługiwać PL i EN, ze wspólnymi identyfikatorami pól.
+- Jeśli napisy są częścią tła, potrzebne są osobne tła PL i EN. Wybór języka przełącza tło i etykiety, zachowując dane postaci.
+- Jeśli napisy są tekstem HTML, można użyć wspólnego tła bez napisów i tłumaczeń w JSON.
+- Konfiguracje pozycji pól mogą być osobne dla języków, jeśli układy kart się różnią.
+
+## PDF do profesjonalnego druku
+
+- Wykonalny jest eksport PDF z CMYK, właściwym profilem ICC i odpowiednią rozdzielczością obrazów.
+- Można przygotować osobny eksport dla drukarni, uwzględniający jej wymagania dotyczące profilu, spadów i standardu PDF/X.
+- W eksporcie do druku warto zachować wektorowe teksty i linie. PNG może służyć jako tło dla Roll20 i podglądu.
+- Obecny eksport nie zapewnia jeszcze przygotowania pliku do profesjonalnego druku. Narzędzia i parametry ustalimy przed wdrożeniem.
+
+## Dalsze prace
+
+- Roll20, tłumaczenia i przygotowanie PDF-u dla drukarni pozostają do wdrożenia.
+- Powiązanie talentów z szablonami: [[Workshop/edytor-talentow]].

@@ -402,7 +402,7 @@ export default function LayeredTemplateEditor() {
           <button role="menuitem" disabled={busy || !activeProject} onClick={() => { setMetadata('project'); setMenuOpen(false) }}>Metryka projektu</button>
           <button role="menuitem" disabled={busy || !variant} onClick={() => { setMetadata('variant'); setMenuOpen(false) }}>Metryka wariantu</button>
           <button role="menuitem" disabled={busy} onClick={() => { setDefinitionsOpen(true); setMenuOpen(false) }}>Definicja pól</button>
-          <hr /><a role="menuitem" href="#dev" onClick={(event) => { if (dirty && !window.confirm('Porzucić niezapisane zmiany?')) event.preventDefault() }}>Tryb deweloperski</a>
+          <hr /><a role="menuitem" href="#dev" onClick={(event) => { if (dirty && !window.confirm('Porzucić niezapisane zmiany?')) event.preventDefault() }}>WORKSHOP</a>
           <hr />
           <button role="menuitem" disabled={busy} onClick={() => { setMenuOpen(false); void save(false) }}><span>Zapisz projekt</span><kbd>Ctrl+S</kbd></button>
         </div>}

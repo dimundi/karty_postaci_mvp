@@ -31,7 +31,8 @@
   gap: 16px;
 }
 
-.developer-options a {
+.developer-options a,
+.developer-option-disabled {
   min-height: 180px;
   display: flex;
   flex-direction: column;
@@ -47,6 +48,11 @@
 .developer-options a:hover {
   border-color: #c19856;
   background: linear-gradient(145deg, #49331f, #211b15);
+}
+
+.developer-option-disabled {
+  opacity: 0.65;
+  border-style: dashed;
 }
 
 .developer-options strong {

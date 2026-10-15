@@ -1,0 +1,195 @@
+{
+  "schemaVersion": 1,
+  "talents": [
+    {
+      "id": "a0d7ee98-419d-4911-9059-8fe5dc7637b2",
+      "name": "Herold Zmroku",
+      "flavorDescription": "Gasną naturalne i niemistyczne źródła światła, takie jak pochodnie czy latarnie. Gęste chmury przysłaniają słońce, a głębokie cienie obejmują przestrzeń.",
+      "description": "Wyzwól Mroczny Instynkt. Zsyłasz ciemność na wskazany obszar o średnicy 100 kroków do końca sceny.",
+      "usesPerMission": 3,
+      "group": "Dary Ciemności",
+      "subgroup": null,
+      "code": null
+    },
+    {
+      "id": "e09e3782-d00f-4f99-b49f-e73c445addcd",
+      "name": "Zjadacz żaru",
+      "flavorDescription": "",
+      "description": "Odrzuć 1 żar i obniż posiadaną Groźbę o wartość twojego Mrocznego Instynktu. Do końca następnej sceny stajesz się WZBURZONY. Jesteś niewrażliwy na ogień, ale masz Utrudnienie do odpierania okultystycznych mocy.",
+      "usesPerMission": 0,
+      "group": "Dary Ciemności",
+      "subgroup": null,
+      "code": null
+    },
+    {
+      "id": "8c701047-8be0-426d-a0f0-b496cc3f17a4",
+      "name": "Słodycz tajemnicy (akcja)",
+      "flavorDescription": "",
+      "description": "Wyzwalając Mroczny Instynkt, przekonujesz kogoś, by wyznał ci swoje ukryte, głębokie pragnienie, nawet jeśli jest ono najbardziej wstydliwe lub niedorzeczne. Na pewno będzie miał ci za złe, że wydarłeś mu ten sekret.",
+      "usesPerMission": 1,
+      "group": "Dary Ciemności",
+      "subgroup": null,
+      "code": null
+    },
+    {
+      "id": "8e7b3672-2189-4226-922f-71ac2d011128",
+      "name": "Spirala nienawiści",
+      "flavorDescription": "",
+      "description": "Przed rzutem na cechę możesz zmienić dowolny Stan na NIENAWIŚĆ. Gdy jesteś w Stanie NIENAWIŚCI, nic nie może zmienić twojego Stanu, opętać cię ani kontrolować cię umysłowo, chyba że na to zezwolisz.",
+      "usesPerMission": 0,
+      "group": "Dary Ciemności",
+      "subgroup": null,
+      "code": null
+    },
+    {
+      "id": "70b9ea76-3022-4b9f-b56c-3bf5725517c4",
+      "name": "Diabelski głos",
+      "flavorDescription": "",
+      "description": "Możesz szeptać komuś do ucha na odległość, o ile tylko go widzisz. Otrzymujesz +1 do wartości cechy (maks. 8) podczas przekonywania, uwodzenia i odprawiania rytuałów. Masz Utrudnienie w kontaktach z przodkami, podczas świętych ceremonii oraz rozmowach o Tradycji.",
+      "usesPerMission": 0,
+      "group": "Dary Ciemności",
+      "subgroup": null,
+      "code": null
+    },
+    {
+      "id": "5bd2d845-0057-420b-9b11-00ae403a580b",
+      "name": "Ślepia",
+      "flavorDescription": "Twoje oczy lśnią diabelskim blaskiem, żarząc się odbiciem purpurowych ogni Zmroku.",
+      "description": "Widzisz zupełnie dobrze nawet w całkowitych ciemnościach, przez gęstą mgłę, dym oraz cienkie zasłony itp. Masz Utrudnienie w silnym, jasnym świetle (blask słońca, reflektor itp.).",
+      "usesPerMission": 0,
+      "group": "Dary Ciemności",
+      "subgroup": null,
+      "code": null
+    },
+    {
+      "id": "d5c78d3a-1e52-464e-bb5d-7f067f93c654",
+      "name": "Szkarłatny karaluch",
+      "flavorDescription": "",
+      "description": "Wyzwól Mroczny Instynkt, aby do końca sceny z łatwością poruszać się po wszystkich płaszczyznach (np. ścianach lub suficie). Przywierasz do każdej powierzchni i nie możesz od niej odpaść ani się ześlizgnąć, chyba że zostaniesz strącony.",
+      "usesPerMission": 0,
+      "group": "Dary Ciemności",
+      "subgroup": null,
+      "code": null
+    },
+    {
+      "id": "0cb9cc25-84eb-4588-960b-f85efff46229",
+      "name": "Nożycoręki",
+      "flavorDescription": "Twoje dłonie obierają groteskowe oblicze. Wyrastają z nich metalowe haki, drzewiaste szpony lub łańcuchy z żyletek.",
+      "description": "Wyzwól Mroczny Instynkt, aby do końca sceny otrzymać +2 Przewagi do ataków wręcz wykonywanych za pomocą swych demonicznych dłoni.",
+      "usesPerMission": 0,
+      "group": "Dary Ciemności",
+      "subgroup": null,
+      "code": null
+    },
+    {
+      "id": "7ae262f0-b4e5-4ada-9d74-9a5f0b286720",
+      "name": "Czarnoksiężnik",
+      "flavorDescription": "",
+      "description": "Wyzwól Mroczny Instynkt podczas rzutu innego gracza, aby dodać mu +2 Mocy. Możesz to zrobić tylko, jeśli on sam ani nikt inny tego nie zrobił oraz jeśli znajdujesz się w tej samej scenie.",
+      "usesPerMission": 0,
+      "group": "Dary Ciemności",
+      "subgroup": null,
+      "code": null
+    },
+    {
+      "id": "c852ad47-a0b6-410f-aa4e-187ad327e972",
+      "name": "Gardziel Pożeracza",
+      "flavorDescription": "Ogarnia cię ochota na ludzkie mięso. Konsumując je, zyskujesz siłę na wzór splugawionych.",
+      "description": "Gdy zjesz fragment ciała żywej lub właśnie zmarłej osoby, wyzwól Mroczny Instynkt, aby pozbyć się 3 Groźby (zamiast 2). Obecność świadka: 1 Hańby.",
+      "usesPerMission": 3,
+      "group": "Dary Ciemności",
+      "subgroup": null,
+      "code": null
+    },
+    {
+      "id": "8f81a946-63d5-414b-90d9-41833e605e68",
+      "name": "Szybki jak strzygoń",
+      "flavorDescription": "Na parę uderzeń serca czas wokół ciebie gęstnieje jak smoła.",
+      "description": "+1 Mocy do pościgu albo gdy uskakujesz przed nagłym zagrożeniem (pociskiem, ciosem, mistycznym uderzeniem itp.). Narrator zyskuje 1 Omen.",
+      "usesPerMission": 3,
+      "group": "Dary Ciemności",
+      "subgroup": null,
+      "code": null
+    },
+    {
+      "id": "04abecdb-210f-4973-98ae-c77f8b3eb71e",
+      "name": "Prymat potępieńca",
+      "flavorDescription": "Emanujesz aurą plugawej potęgi i czasem mówisz w echomenie.",
+      "description": "Masz Przewagę w atakach i egzorcyzmach przeciw upiorom, lecz Utrudnienie w kontaktach z duchami przodków i inkwizycją. Masz szansę równą liczbie zakreślonych pól Mrocznego Instynktu, że użyty na tobie Dar Ciemności nie zadziała.",
+      "usesPerMission": 0,
+      "group": "Dary Ciemności",
+      "subgroup": null,
+      "code": null
+    },
+    {
+      "id": "c924301f-a6b9-4217-8d91-80c41e551066",
+      "name": "Krwawe bogactwa",
+      "flavorDescription": "Ciemność doskonale potrafi zaspokoić chciwość. Odkąd jej zawierzyłeś, trzyma się ciebie grosz, a ludzie spełniają twe zachcianki.",
+      "description": "Wyzwól Mroczny Instynkt, aby zyskać tyle Zasobów, ile posiadasz Mrocznego Instynktu +1.",
+      "usesPerMission": 1,
+      "group": "Dary Ciemności",
+      "subgroup": null,
+      "code": null
+    },
+    {
+      "id": "ffedf224-ee6c-4bf0-8e5e-5592cbe07ef4",
+      "name": "Rozrywacz Czarnej Tkanki (akcja)",
+      "flavorDescription": "Rozdzierasz kurtynę oddzielającą światy, tworząc niewielką ranę w osnowie rzeczywistości, broczącą krwawą smołą.",
+      "description": "Wyzwól Mroczny Instynkt, aby przenieść się do Zmroku. Możesz powrócić, kiedy zechcesz, ale powoduje to 1 Omen.",
+      "usesPerMission": 0,
+      "group": "Dary Ciemności",
+      "subgroup": null,
+      "code": null
+    },
+    {
+      "id": "2a6a8f31-c043-45e8-a04b-30b30605e004",
+      "name": "Szyderstwo mięsa (akcja)",
+      "flavorDescription": "Wyklinaniem i szydzeniem z drugiej osoby wywołujesz gnicie jej ciała.",
+      "description": "Wywierasz 1 Presji, zadając obrażenia swoimi plugawymi słowami. Ryzyko (3), że sam otrzymasz 1 Groźby.",
+      "usesPerMission": 3,
+      "group": "Dary Ciemności",
+      "subgroup": null,
+      "code": null
+    },
+    {
+      "id": "538f5cfd-8072-4ffa-8332-1273258b2690",
+      "name": "Kolekcjoner dusz (akcja)",
+      "flavorDescription": "Gdy naznaczysz umierającego pocałunkiem, kradniesz jego duszę.",
+      "description": "Gdy własnoręcznie zabijesz Unitę lub splugawionego stanowiącego wyzwanie (★★+), wyzwól Mroczny Instynkt, aby zyskać 1 Doświadczenia.",
+      "usesPerMission": 3,
+      "group": "Dary Ciemności",
+      "subgroup": null,
+      "code": null
+    },
+    {
+      "id": "674ca02e-bd2a-4e4c-b805-6d9615db1414",
+      "name": "Mroczne błogosławieństwo",
+      "flavorDescription": "Ciemność podarowała ci wymarzoną siłę, spryt lub urodę, ale teraz jeszcze łatwiej cię przekupić.",
+      "description": "Gdy otrzymujesz ten talent, zapisz sobie na stałe +1 do wybranej cechy (nie powyżej 8). Ryzyko w rzucie na splugawienie masz zawsze wyższe o 1, do maks. 9.",
+      "usesPerMission": 0,
+      "group": "Dary Ciemności",
+      "subgroup": null,
+      "code": null
+    },
+    {
+      "id": "76cccff4-76f8-42bd-ae0c-615f5cb2b8f2",
+      "name": "Czarna jucha",
+      "flavorDescription": "",
+      "description": "Gdy zostaniesz zraniony, twoja krew tryska obficie i rani napastnika – szansa (3) na wywarcie na nim 1 Presji. Możesz przyjąć 1 Groźby, aby zranić się i upuścić nieco żrącej krwi, np. przepalić kratę. Utrudnienie do leczenia cię.",
+      "usesPerMission": 0,
+      "group": "Dary Ciemności",
+      "subgroup": null,
+      "code": null
+    },
+    {
+      "id": "5af41216-70a1-474c-8f34-9e1a16cba0f4",
+      "name": "Rozkosz gniewu",
+      "flavorDescription": "",
+      "description": "Do końca sceny WZBURZENIE zwiększa twoją cechę o +2 zamiast +1 (do maks. 8). Jeśli w tym czasie posiadasz ten Stan i pokonasz w walce przeciwnika, nie możesz się powstrzymać przed jego zabiciem w możliwie okrutny sposób i rozkoszujesz się bezczeszczeniem jego zwłok (1 Hańby).",
+      "usesPerMission": 3,
+      "group": "Dary Ciemności",
+      "subgroup": null,
+      "code": null
+    }
+  ]
+}

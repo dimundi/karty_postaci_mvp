@@ -238,7 +238,7 @@ export default function ArchetypeTemplateEditor() {
           <p>{message}</p>
         </div>
         <div className="header-actions">
-          <a className="user-view-link" href="#dev">Tryb deweloperski</a>
+          <a className="user-view-link" href="#dev">WORKSHOP</a>
           <a className="user-view-link" href="#user">Widok użytkownika</a>
           <div className="zoom-controls">
             <button onClick={() => changeZoom(-1)} disabled={zoom === ZOOM_LEVELS[0]}>−</button>

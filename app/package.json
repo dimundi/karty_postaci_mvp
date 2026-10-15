@@ -26,6 +26,7 @@
     "typescript": "~5.9.0",
     "webpack": "^5.0.0",
     "webpack-cli": "^6.0.0",
-    "webpack-dev-server": "^6.0.0"
+    "webpack-dev-server": "^6.0.0",
+    "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
   }
 }

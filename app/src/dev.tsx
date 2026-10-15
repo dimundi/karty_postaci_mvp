@@ -2,6 +2,7 @@ import { StrictMode, useEffect, useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import TemplateCreator from './editor/LayeredTemplateEditor'
 import DeveloperHome from './developer/DeveloperHome'
+import TalentLibrary from './developer/TalentLibrary'
 import StartPage from './start/StartPage'
 import UserClanEditor from './user/UserClanEditor'
 import './index.css'
@@ -21,6 +22,10 @@ function DevelopmentApp() {
 
   if (hash === '#dev') {
     return <DeveloperHome />
+  }
+
+  if (hash === '#dev-talents') {
+    return <TalentLibrary />
   }
 
   if (hash === '#dev-templates' || hash === '#dev-clans' || hash === '#dev-archetypes') {

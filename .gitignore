@@ -30,3 +30,7 @@ Desktop.ini
 
 # Robocze zrzuty podglądu
 /editor-preview-*.png
+
+# Kopia i plik tymczasowy wewnętrznej listy talentów
+/cardTemplates/talenty/talenty.json.bak
+/cardTemplates/talenty/talenty.json.tmp
