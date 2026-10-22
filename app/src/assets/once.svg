@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 595.28 841.89">
+  <defs>
+    <style>
+      .cls-1 {
+        font-family: SegoePrint-Bold, 'Segoe Print';
+        font-size: 229.66px;
+        font-weight: 700;
+      }
+
+      .cls-1, .cls-2 {
+        fill: #3c5476;
+      }
+
+      .cls-3 {
+        fill: none;
+      }
+
+      .cls-4 {
+        clip-path: url(#clippath);
+      }
+    </style>
+    <clipPath id="clippath">
+      <rect class="cls-3" x="161.01" y="221.87" width="308.32" height="368.18"/>
+    </clipPath>
+  </defs>
+  <g class="cls-4">
+    <text class="cls-1" transform="translate(143.97 525.71)"><tspan x="0" y="0">1</tspan></text>
+    <path class="cls-2" d="M284.27,587.81c143.56-60.13,256.02-154.08,110.48-290.18-64.85-49.31-156.53-27.37-212.9,29.76l-1.85-1.34c40.61-76.47,160.99-109.32,228.53-45.04,62.58,58.42,85.08,166.81,27.91,236.15-39.09,42.82-95.42,65.72-151.63,72.89l-.54-2.24Z"/>
+    <path class="cls-2" d="M188.79,221.94c3.05,33.38,4.36,66.73,6.57,100.14l-11.89-10.91c23.31-5.8,46.74-5.29,70.29,1.55l.24,2.27c-21.37,11.98-44.08,17.75-68.11,17.39l-13.36-.21c5.08-36.73,8.34-73.66,13.96-110.3l2.3.06Z"/>
+  </g>
+</svg>

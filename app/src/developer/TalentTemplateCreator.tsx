@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import fontUrl from '../assets/fonts/NotoSans-Regular.ttf'
+import { talentFontUrls } from '../talentTemplates/fonts'
 import { TalentTemplate, PreviewTalent, PARTS, defaultTemplate, renderTemplate, fitText } from '../talentTemplates/template.cjs'
 import './talent-template-creator.css'
 
 type Saved = { template: TalentTemplate; revision: string | null }
-const sample: PreviewTalent = { id: 'preview', name: 'Nazwa talentu', flavorDescription: 'Przykładowy opis fabularny.', description: 'Przykładowy opis działania talentu.', usesPerMission: 3, isDarkGift: true, code: null }
+const sample: PreviewTalent = { id: 'preview', name: 'Nazwa talentu', flavorDescription: 'Przykładowy opis fabularny.', description: 'Przykładowy opis działania talentu.', usesPerMission: 3, isDarkGift: true, isAction: false, code: null }
 async function api<T>(url: string, options?: RequestInit): Promise<T> {
   const response = await fetch(url, options), data = await response.json()
   if (!response.ok) throw new Error(data.error || 'Nie udało się wczytać danych.')
@@ -25,7 +25,7 @@ export default function TalentTemplateCreator() {
   const [overflow, setOverflow] = useState<string[]>([])
   const iframe = useRef<HTMLIFrameElement>(null)
   const dirty = Boolean(saved && JSON.stringify(template) !== JSON.stringify(saved.template))
-  const html = useMemo(() => renderTemplate(template, preview, { fontUrl, highlight: guides ? selected : '' }), [template, preview, guides, selected])
+  const html = useMemo(() => renderTemplate(template, preview, { fontUrls: talentFontUrls, highlight: guides ? selected : '' }), [template, preview, guides, selected])
   useEffect(() => {
     let active = true
     void Promise.all([api<Saved>('/api/talent-template'), api<{ talents: PreviewTalent[] }>('/api/talents')]).then(([data, library]) => {
@@ -76,7 +76,7 @@ export default function TalentTemplateCreator() {
       setMessage(format === 'png' ? 'Wygenerowano grafikę do samodzielnego udostępnienia na Facebooku.' : 'Wygenerowano próbny PDF. Dane talentu pozostają bez zmian.')
     } catch (e) { setError((e as Error).message) } finally { setBusy(false) }
   }
-  const numeric = (key: 'padding' | 'statusHeight' | 'iconGap' | 'textGap' | 'fontSize' | 'minFontSize' | 'lineHeight', label: string, min: number, max: number) => <label>{label}<input type="number" value={template[key]} min={min} max={max} step="0.1" onChange={(e) => {
+  const numeric = (key: 'padding' | 'verticalPadding' | 'statusHeight' | 'iconGap' | 'textGap' | 'fontSize' | 'minFontSize' | 'lineHeight', label: string, min: number, max: number) => <label>{label}<input type="number" value={template[key]} min={min} max={max} step="0.1" onChange={(e) => {
     const value = e.target.valueAsNumber
     if (!Number.isFinite(value)) return
     const n = Math.max(min, Math.min(max, value))
@@ -87,8 +87,8 @@ export default function TalentTemplateCreator() {
     {error && <p className="tt-error" role="alert">{error}</p>}{message && <p className="tt-success" role="status">{message}</p>}{busy && <p role="status">Przetwarzanie…</p>}
     {!saved ? <p>Wczytywanie szablonu…</p> : <div className="tt-layout">
       <aside className="tt-panel"><h2>Elementy szablonu</h2><p className="tt-note">Lista jest stała. Kliknij element, aby wskazać go na karcie.</p><div className="tt-parts">{Object.entries(PARTS).map(([id, label]) => <button key={id} aria-pressed={selected === id} onClick={() => setSelected(id)}>{label}{id === 'darkGift' && !preview.isDarkGift ? ' — nieaktywna' : id === 'uses' && !preview.usesPerMission ? ' — nieaktywne' : ''}</button>)}</div><p className="tt-note">Ramka ma stałą wielkość. Ikony i kwadraty pokazują się według parametrów, niezależnie od grupy talentu.</p><h2>Wygląd wspólny</h2><fieldset disabled={busy}>
-        {numeric('padding', 'Margines wewnętrzny (pt)', 2, 15)}{numeric('statusHeight', 'Bazowy rozmiar ikon (pt)', 5, 22)}{numeric('iconGap', 'Odstęp między ikonami (pt)', 0, 10)}{numeric('textGap', 'Odstęp pod paskiem (pt)', 0, 12)}{numeric('fontSize', 'Rozmiar tekstu (pt)', 4, 20)}{numeric('lineHeight', 'Interlinia', 1, 2)}
-        <label className="tt-check"><input type="checkbox" checked={template.autoFit} onChange={(e) => setTemplate((t) => ({ ...t, autoFit: e.target.checked }))} />Zmniejszaj tekst do ramki</label>{template.autoFit && numeric('minFontSize', 'Minimalny rozmiar tekstu (pt)', 3, template.fontSize)}
+        {numeric('padding', 'Margines poziomy (pt)', 2, 15)}{numeric('verticalPadding', 'Margines pionowy (pt)', 2, 15)}{numeric('statusHeight', 'Bazowy rozmiar ikon (pt)', 5, 22)}{numeric('iconGap', 'Odstęp między ikonami (pt)', 0, 10)}{numeric('textGap', 'Odstęp pod paskiem (pt)', 0, 12)}{numeric('fontSize', 'Rozmiar tekstu (pt)', 9, 20)}{numeric('lineHeight', 'Interlinia', 1, 2)}
+        <label className="tt-check"><input type="checkbox" checked={template.autoFit} onChange={(e) => setTemplate((t) => ({ ...t, autoFit: e.target.checked }))} />Zmniejszaj tekst do ramki</label>{template.autoFit && numeric('minFontSize', 'Minimalny rozmiar tekstu (pt)', 9, template.fontSize)}
         {([['color', 'Kolor tekstu'], ['flavorColor', 'Kolor opisu fabularnego'], ['background', 'Tło karty']] as const).map(([key, label]) => <label key={key}>{label}<input type="color" value={template[key]} onChange={(e) => setTemplate((t) => ({ ...t, [key]: e.target.value }))} /></label>)}
         <p className="tt-note">{dirty ? '● Niezapisane ustawienia' : 'Ustawienia zapisane'} · Ctrl+S — zapis</p>
       </fieldset></aside>
@@ -105,6 +105,7 @@ export default function TalentTemplateCreator() {
         <label>Opis talentu<textarea rows={7} maxLength={20000} value={preview.description} onChange={(e) => patchPreview({ description: e.target.value })} /></label>
         <label>Liczba użyć na misję<select aria-label="Liczba użyć na misję" value={preview.usesPerMission} onChange={(e) => patchPreview({ usesPerMission: Number(e.target.value) })}>{[0, 1, 2, 3].map((n) => <option key={n} value={n}>{n}</option>)}</select></label>
         <label className="tt-check"><input type="checkbox" checked={preview.isDarkGift} onChange={(e) => patchPreview({ isDarkGift: e.target.checked })} />Dar Ciemności</label>
+        <label className="tt-check"><input type="checkbox" checked={preview.isAction ?? false} onChange={(e) => patchPreview({ isAction: e.target.checked })} />Akcja</label>
       </fieldset></aside>
     </div>}
   </main>

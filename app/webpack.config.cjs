@@ -4,6 +4,7 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { installCardCreator } = require('./scripts/card-creator-server.cjs')
 const { installTalents } = require('./scripts/talents-server.cjs')
+const { installMailingList } = require('./scripts/mailing-list-server.cjs')
 const { installTalentTemplates } = require('./scripts/talent-templates-server.cjs')
 
 const templatesDirectory = '/pdfTemplates/klany'
@@ -91,6 +92,7 @@ class CopyTemplatesPlugin {
       fs.cpSync('/pdfTemplates', destination, { recursive: true })
       fs.cpSync(path.resolve(__dirname, 'src/assets/clans'), clanAssetsDestination, { recursive: true })
       fs.copyFileSync(path.resolve(__dirname, 'src/assets/fonts/OFL.txt'), path.join(outputDirectory, 'assets', 'NotoSans-OFL.txt'))
+      fs.copyFileSync(path.resolve(__dirname, 'src/assets/fonts/LinuxLibertine-OFL.txt'), path.join(outputDirectory, 'assets', 'LinuxLibertine-OFL.txt'))
       fs.writeFileSync(
         path.join(clanDestination, 'index.json'),
         `${JSON.stringify(getClanTemplates(), null, 2)}\n`,
@@ -207,7 +209,8 @@ module.exports = (_environment, arguments_) => {
       }
       installCardCreator(devServer.app)
       installTalents(devServer.app)
-      installTalentTemplates(devServer.app)
+      const talentRenderer = installTalentTemplates(devServer.app)
+      installMailingList(devServer.app, undefined, talentRenderer)
 
       devServer.app.get('/user', (_request, response) => {
         response.redirect('/#user')

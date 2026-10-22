@@ -2,6 +2,8 @@ const fs = require('node:fs')
 const path = require('node:path')
 const { createHash, randomUUID } = require('node:crypto')
 const XLSX = require('xlsx')
+const devTypeCatalog = require('../src/talentTemplates/dev-types.json')
+const { parseGoogleDocWorkbook } = require('./talent-googledoc-import.cjs')
 
 const CODE = /^[A-HJ-NP-Z2-9]{4}-[A-HJ-NP-Z2-9]{4}$/
 const normalize = (value) => value.trim().normalize('NFC').toLocaleLowerCase('pl')
@@ -15,9 +17,14 @@ function validateTalent(value, requireId = true) {
   if (!Number.isInteger(value.usesPerMission) || value.usesPerMission < 0 || value.usesPerMission > 3) throw new Error('Liczba użyć musi być liczbą całkowitą od 0 do 3.')
   if (value.code !== null && (typeof value.code !== 'string' || !CODE.test(value.code))) throw new Error('Nieprawidłowy kod talentu.')
   if (value.isDarkGift !== undefined && typeof value.isDarkGift !== 'boolean') throw new Error('Flaga Daru Ciemności musi mieć wartość tak lub nie.')
+  if (value.isAction !== undefined && typeof value.isAction !== 'boolean') throw new Error('Flaga akcji musi mieć wartość tak lub nie.')
+  if (value.oncePerScene !== undefined && typeof value.oncePerScene !== 'boolean') throw new Error('Flaga „Raz na scenę” musi mieć wartość tak lub nie.')
+  const originalName = text(value.name, 'nazwa', 300, true)
+  const actionSuffix = /\s*\(akcja\)\s*:?\s*$/i
+  const name = text(originalName.replace(actionSuffix, ''), 'nazwa', 300, true)
   return {
     ...(requireId ? { id: text(value.id, 'ID', 100, true) } : {}),
-    name: text(value.name, 'nazwa', 300, true),
+    name,
     flavorDescription: text(value.flavorDescription, 'opis fabularny'),
     description: text(value.description, 'opis działania', 20000, true),
     usesPerMission: value.usesPerMission,
@@ -25,6 +32,9 @@ function validateTalent(value, requireId = true) {
     subgroup: value.subgroup === null ? null : text(value.subgroup, 'podgrupa', 200) || null,
     code: value.code,
     isDarkGift: value.isDarkGift ?? false,
+    isAction: value.isAction ?? actionSuffix.test(originalName),
+    oncePerScene: value.oncePerScene ?? false,
+    dev_type: value.dev_type == null ? null : text(value.dev_type, 'dev_type', 200) || null,
   }
 }
 function validateLibrary(library) {
@@ -42,7 +52,7 @@ function parseWorkbook(buffer, group, subgroup) {
   // Accept real OLE XLS and ZIP XLSX, not HTML/CSV masquerading as spreadsheets.
   if (!(buffer.subarray(0, 8).equals(Buffer.from('d0cf11e0a1b11ae1', 'hex')) || buffer.subarray(0, 2).toString() === 'PK')) throw new Error('Wybierz plik XLS lub XLSX.')
   const workbook = XLSX.read(buffer, { type: 'buffer', sheetRows: 10002, cellFormula: true })
-  if (workbook.SheetNames.length !== 1) throw new Error('Plik musi zawierać jeden arkusz z talentami.')
+  if (workbook.SheetNames.length !== 1) throw new Error('Wybrano dotychczasowy import pięciu kolumn, który wymaga jednego arkusza. Dla pliku „Dary Ciemności.xlsx” wybierz procedurę „GoogleDoc (nowy)”.')
   const sheet = workbook.Sheets[workbook.SheetNames[0]]
   if (!sheet['!ref']) throw new Error('Arkusz jest pusty.')
   const range = XLSX.utils.decode_range(sheet['!fullref'] || sheet['!ref'])
@@ -65,7 +75,7 @@ function parseWorkbook(buffer, group, subgroup) {
   if (!talents.length) throw new Error('Brak talentów do importu.')
   return talents
 }
-function planImport(library, incoming) {
+function planImport(library, incoming, options = {}) {
   if (!Array.isArray(incoming) || !incoming.length || incoming.length > 10000) throw new Error('Nieprawidłowa lista importu.')
   const used = new Set(), keys = new Set(), codes = new Set()
   return incoming.map((item, index) => {
@@ -79,7 +89,11 @@ function planImport(library, incoming) {
     if (existing && used.has(existing.id)) throw new Error('Kilka wierszy wskazuje ten sam istniejący talent.')
     if (existing) used.add(existing.id)
     if (existing?.code && talent.code && existing.code !== talent.code) throw new Error('Import nie może zmienić nadanego kodu talentu.')
-    const next = { ...talent, id: existing?.id || randomUUID(), code: existing?.code || talent.code, isDarkGift: existing?.isDarkGift ?? talent.isDarkGift }
+    const next = { ...talent, id: existing?.id || randomUUID(), code: existing?.code || talent.code,
+      isDarkGift: options.overrideDarkGift ? options.isDarkGift : existing?.isDarkGift ?? talent.isDarkGift,
+      isAction: options.source === 'googledoc' ? talent.isAction : existing?.isAction ?? talent.isAction,
+      oncePerScene: options.source === 'googledoc' ? talent.oncePerScene : existing?.oncePerScene ?? talent.oncePerScene,
+      dev_type: options.source === 'googledoc' ? talent.dev_type : existing?.dev_type ?? talent.dev_type }
     const action = !existing ? 'add' : JSON.stringify(validateTalent(existing)) === JSON.stringify(validateTalent(next)) ? 'unchanged' : 'update'
     return { talent: next, action }
   })
@@ -94,9 +108,21 @@ async function body(request) {
   return Buffer.concat(chunks)
 }
 function installTalents(app, file = '/cardTemplates/talenty/talenty.json') {
+  function importOptions(input) {
+    const source = input.source || 'legacy'
+    if (!['legacy', 'googledoc'].includes(source)) throw new Error('Nieznana procedura importu.')
+    const flag = (value) => {
+      if (value == null || value === false || value === 'false') return false
+      if (value === true || value === 'true') return true
+      throw new Error('Nieprawidłowa wartość opcji importu.')
+    }
+    return { source, isDarkGift: flag(input.isDarkGift), overrideDarkGift: flag(input.overrideDarkGift) }
+  }
   function load() {
     const content = fs.existsSync(file) ? fs.readFileSync(file, 'utf8') : JSON.stringify({ schemaVersion: 1, talents: [] })
-    return { ...validateLibrary(JSON.parse(content)), revision: createHash('sha256').update(content).digest('hex') }
+    const library = validateLibrary(JSON.parse(content))
+    const devTypes = [...new Set([...devTypeCatalog, ...library.talents.map((t) => t.dev_type).filter(Boolean)])].sort((a, b) => a.localeCompare(b, 'pl'))
+    return { ...library, devTypes, revision: createHash('sha256').update(content).digest('hex') }
   }
   function save(library, revision) {
     const current = load()
@@ -113,6 +139,12 @@ function installTalents(app, file = '/cardTemplates/talenty/talenty.json') {
     try { response.json(await handler(request)) } catch (error) { response.status(error.status || 400).json({ error: error.message || 'Nie udało się obsłużyć talentów.' }) }
   }
   app.get('/api/talents', route(() => load()))
+  app.post('/api/talents/create', route(async (request) => {
+    const input = JSON.parse((await body(request)).toString('utf8'))
+    const current = load()
+    const talent = { ...validateTalent({ ...input.talent, code: null }, false), id: randomUUID() }
+    return save({ schemaVersion: 1, talents: [...current.talents, talent] }, input.revision)
+  }))
   app.post('/api/talents/save', route(async (request) => {
     const input = JSON.parse((await body(request)).toString('utf8'))
     const current = load()
@@ -124,18 +156,21 @@ function installTalents(app, file = '/cardTemplates/talenty/talenty.json') {
   }))
   app.post('/api/talents/import-preview', route(async (request) => {
     const url = new URL(request.url, 'http://localhost')
-    const incoming = parseWorkbook(await body(request), url.searchParams.get('group') || '', url.searchParams.get('subgroup') || null)
+    const options = importOptions(Object.fromEntries(url.searchParams))
+    const bytes = await body(request), group = url.searchParams.get('group') || '', subgroup = url.searchParams.get('subgroup') || null
+    const parsed = options.source === 'googledoc' ? parseGoogleDocWorkbook(bytes, group, subgroup, options.isDarkGift, validateTalent) : { talents: parseWorkbook(bytes, group, subgroup), ignoredSheets: [] }
+    const incoming = parsed.talents.map((talent) => ({ ...talent, isDarkGift: options.source === 'legacy' && !options.isDarkGift ? talent.isDarkGift : options.isDarkGift }))
     const current = load()
-    return { revision: current.revision, rows: planImport(current, incoming) }
+    return { revision: current.revision, ignoredSheets: parsed.ignoredSheets, rows: planImport(current, incoming, options) }
   }))
   app.post('/api/talents/import', route(async (request) => {
     const input = JSON.parse((await body(request)).toString('utf8'))
     const current = load()
-    const plan = planImport(current, input.talents)
+    const plan = planImport(current, input.talents, importOptions(input))
     const replacements = new Map(plan.map((row) => [row.talent.id, row.talent]))
     const talents = current.talents.map((t) => replacements.get(t.id) || t)
     talents.push(...plan.filter((r) => r.action === 'add').map((r) => r.talent))
     return save({ schemaVersion: 1, talents }, input.revision)
   }))
 }
-module.exports = { installTalents, validateLibrary, parseWorkbook, planImport }
+module.exports = { installTalents, validateTalent, validateLibrary, parseWorkbook, planImport }

@@ -18,6 +18,10 @@ export default function DeveloperHome() {
             <strong>Przegląd i import talentów</strong>
             <small>Wewnętrzna lista, edycja tekstowa i import XLS</small>
           </a>
+          <a href="#dev-mailing-list">
+            <strong>Lista mailingowa</strong>
+            <small>Ręczne dodawanie adresów i przegląd odbiorców</small>
+          </a>
           <div className="developer-option-disabled" aria-disabled="true">
             <strong>Edytor talentów</strong>
             <small>Tworzenie talentów i własnych list do PDF · W przygotowaniu</small>

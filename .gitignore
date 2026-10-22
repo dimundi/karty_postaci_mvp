@@ -5,7 +5,9 @@ node_modules/
 *.tsbuildinfo
 coverage/
 .cache/
+/privateData/
 *.log
+*.bak
 
 # Lokalne zmienne środowiskowe
 .env
@@ -31,10 +33,7 @@ Desktop.ini
 # Robocze zrzuty podglądu
 /editor-preview-*.png
 
-# Kopia i plik tymczasowy wewnętrznej listy talentów
-/cardTemplates/talenty/talenty.json.bak
+# Pliki tymczasowe szablonów i listy talentów
 /cardTemplates/talenty/talenty.json.tmp
-/cardTemplates/talenty/szablon.json.bak
 /cardTemplates/talenty/szablon.json.tmp
-/cardTemplates/szablony-talentow/*.json.bak
 /cardTemplates/szablony-talentow/*.json.tmp

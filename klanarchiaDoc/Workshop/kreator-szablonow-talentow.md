@@ -82,6 +82,9 @@ Miejsce wyświetlania kodu talentu pozostaje do ustalenia.
 - Ilustracja: `app/src/assets/social/klanarchia-cover-frontandback.png`, skopiowana z pliku użytkownika `Klanarchiacover_illustration_frontandback.png`. Używamy oryginalnej ilustracji, kadrowania i łagodnych przejść tła. Bez generowania nowych ilustracji.
 - Przekaz reklamy: odbiorca chwali się własnym, unikalnym talentem do Klanarchii i zachęca innych do wsparcia zbiórki. Wezwanie: „Wesprzyj zbiórkę i zdobądź swój TALENT”. Słowo „TALENT” jest wyróżnione. Wezwanie i logo Gamefound znajdują się wyżej po prawej stronie, obok górnej części karty. Nie dodajemy napisu „Z kroniki mojej postaci”.
 - Kompozycja reklamowa: `app/scripts/talent-social-poster.cjs`. Ilustracja okładkowa wypełnia kadr; tekst ma charakter składu księgi RPG, a karta talentu jest wkomponowana jako przekrzywiony, postrzępiony pergamin. Bez ramek strony, sekcji i przycisków w samej grafice.
+- Grafika z podglądu mailingowego pokazuje nad pergaminem „Talent nr: …”, z numerem kolejnym odbiorcy (`sequenceNumber`). Zwykły eksport z kreatora bez odbiorcy nie dodaje numeru.
+- Powiększono ikony w lewym górnym rogu karty: heks ma 1,25 × `statusHeight`, ikona Daru Ciemności 1,7 × `statusHeight`. Pasek statusu ma wysokość 1,7 × `statusHeight`, aby ikony nie nachodziły na opis. Kwadraty użyć po prawej zachowują swój rozmiar. Dotyczy wspólnego podglądu i eksportu.
+- Tekst samej karty korzysta z dołączonej Linux Libertine (regular, semibold, bold, italic, bold italic), identycznie w kreatorze, podglądzie biblioteki, PDF i karcie w grafice reklamowej. Stan ma kapitaliki i semibold, aspekt tło `#b1b7c6`, cecha pogrubienie z kursywą. Pozostała typografia plakatu pozostaje bez zmian. Szczegóły plików i licencji: [[Workshop/przeglad-i-import-talentow]].
 - Karta talentu pozostaje renderowana ze wspólnego szablonu. Zabarwienie pergaminu dotyczy tylko grafiki reklamowej; PDF zachowuje swój wygląd.
 - Logo Gamefound pochodzi z [oficjalnego media kitu](https://help.gamefound.com/article/129-media-kit-for-promotion), pakietu Social Media Stickers. Plik: `app/src/assets/social/gamefound-back-now-official.png`. W kompozycji pokazujemy fragment zawierający logo, z zachowaniem oryginalnych kolorów i proporcji.
 - Krój nagłówka i wezwania: Cormorant Garamond z oficjalnego repozytorium Google Fonts, osadzony lokalnie. Font i licencja: `app/src/assets/fonts/CormorantGaramond.ttf` i `CormorantGaramond-OFL.txt`.
@@ -99,6 +102,9 @@ Miejsce wyświetlania kodu talentu pozostaje do ustalenia.
 - Nowa koncepcja jest wdrożona: jeden renderer HTML, stała lista elementów, flaga `isDarkGift`, brak typów szablonów.
 - Ustawienia wspólnego szablonu: `cardTemplates/talenty/szablon.json`, format `schemaVersion: 2`.
 - Stałe wymiary ramki odpowiadają dostarczonemu SVG: `185,67 × 101,76 pt`, czyli około `65,5 × 35,9 mm`.
+- Minimum tekstu wynosi 9 pt w kreatorze, walidacji API i dopasowaniu tekstu. Domyślnie `fontSize: 9`, `minFontSize: 9`, interlinia 1,12. Większy tekst może być dopasowany najwyżej do 9 pt; dalsze przepełnienie blokuje eksport.
+- Margines poziomy pozostaje 7 pt. Nowy osobny `verticalPadding` wynosi 3,5 pt (wcześniej góra/dół miały 7 pt), a `textGap` 1 pt zamiast 4 pt. Przy obecnych ikonach mieści się siedem linii po 9 pt. Szablon zapisano po wykonaniu kopii `szablon.json.before-minimum-9pt-<czas>.bak`. Starsze szablony bez `verticalPadding` odczytujemy z wartością 3,5 pt.
+- Kontrola obecnych 19 talentów z Linux Libertine: przy tym układzie i minimum 9 pt przepełnienie pozostaje dla „Prymatu potępieńca”. Treści nie skracano; eksport tego talentu zgłosi błąd do czasu poprawy składu lub tekstu.
 - Starszy katalog `cardTemplates/szablony-talentow` nie jest używany. Jego pliki zachowujemy bez zmian.
 - JSON talentów przechowuje `isDarkGift`. Nie używamy `templateTypeId`.
 - Przy zapisie ustawień zachowujemy `.bak`, używamy pliku tymczasowego i sprawdzamy konflikt wersji.
@@ -107,3 +113,5 @@ Miejsce wyświetlania kodu talentu pozostaje do ustalenia.
 - Test: `docker compose exec app node scripts/verify-talent-templates.cjs`. Korzysta z osobnych danych.
 
 Powiązane: [[Workshop/przeglad-i-import-talentow]], [[Workshop/talenty_ekskluzyne]].
+
+- Logo Klanarchii jest w prawym górnym rogu, a logo What The Frog w prawym dolnym, nad podpisem. Hasło po lewej zaczyna się na wysokości 90 px, a opis na 396 px. Karta talentu jest lekko przechylona o −3°, bliżej poziomu.

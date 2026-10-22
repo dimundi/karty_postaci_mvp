@@ -1,0 +1,58 @@
+const assert = require('node:assert/strict')
+const fs = require('node:fs')
+const express = require('express')
+const { chromium } = require('playwright-core')
+const { PDFDocument, PDFName } = require('pdf-lib')
+const { defaultTemplate, renderTemplate, ASSETS, fitText } = require('../src/talentTemplates/template.cjs')
+const { installTalentTemplates } = require('./talent-templates-server.cjs')
+
+async function verify() {
+  const fontUrls = Object.fromEntries(Object.entries({ regular: 'R', semibold: 'RZ', bold: 'RB', italic: 'RI', boldItalic: 'RBI' }).map(([key, suffix]) => [key, 'data:font/ttf;base64,' + fs.readFileSync(`src/assets/fonts/LinLibertine_${suffix}.ttf`).toString('base64')]))
+  const sample = { id: 'font-test', name: 'Próba czcionki', flavorDescription: 'Opis fabularny: żółć.', description: 'Zwykły **pogrubiony** *kursywa* ***połączone***. [stan: Osłabiony] [aspekt: Cień] [cecha: Siła].', usesPerMission: 1, isDarkGift: true, isAction: false, code: null }
+  const template = defaultTemplate()
+  const image = 'data:image/svg+xml;base64,' + Buffer.from('<svg xmlns="http://www.w3.org/2000/svg" width="10" height="10"/>').toString('base64')
+  const images = Object.fromEntries(Object.keys(ASSETS).map((key) => [key, image]))
+  const browser = await chromium.launch({ executablePath: '/usr/bin/chromium', args: ['--no-sandbox', '--disable-dev-shm-usage'] })
+  try {
+    const page = await browser.newPage()
+    await page.setContent(renderTemplate(template, sample, { fontUrls, images }))
+    await page.evaluate(() => document.fonts.ready)
+    const styles = await page.evaluate(() => {
+      const state = getComputedStyle(document.querySelector('.talent-state'))
+      const aspect = getComputedStyle(document.querySelector('.talent-aspect'))
+      const trait = getComputedStyle(document.querySelector('.talent-trait em'))
+      return { stateWeight: state.fontWeight, stateCaps: state.fontVariantCaps, aspectBackground: aspect.backgroundColor, traitWeight: trait.fontWeight, traitStyle: trait.fontStyle }
+    })
+    assert.deepEqual(styles, { stateWeight: '600', stateCaps: 'small-caps', aspectBackground: 'rgb(177, 183, 198)', traitWeight: '700', traitStyle: 'italic' })
+    const client = await page.context().newCDPSession(page)
+    await client.send('DOM.enable'); await client.send('CSS.enable')
+    const { root } = await client.send('DOM.getDocument')
+    const { nodeIds } = await client.send('DOM.querySelectorAll', { nodeId: root.nodeId, selector: '.text, .text *' })
+    const results = await Promise.all(nodeIds.map((nodeId) => client.send('CSS.getPlatformFontsForNode', { nodeId })))
+    const fonts = [...new Map(results.flatMap((r) => r.fonts).map((font) => [font.postScriptName, font])).values()]
+    assert.equal(fonts.length, 5, JSON.stringify(fonts))
+    assert.ok(fonts.every((font) => font.isCustomFont && font.familyName === 'Linux Libertine'))
+    assert.deepEqual(fonts.map((font) => font.postScriptName).sort(), ['LinLibertine', 'LinLibertineB', 'LinLibertineBI', 'LinLibertineI', 'LinLibertineZ'])
+    const renderer = installTalentTemplates(express())
+    const bytes = await renderer.renderMaterial('pdf', { template, preview: sample })
+    const pdf = await PDFDocument.load(bytes)
+    const fontDict = pdf.getPages()[0].node.Resources().lookup(PDFName.of('Font'))
+    const embedded = fontDict.entries().map(([, ref]) => pdf.context.lookup(ref).get(PDFName.of('BaseFont')).toString())
+    for (const name of ['LinLibertine', 'LinLibertineB', 'LinLibertineI', 'LinLibertineBI', 'LinLibertineZ']) assert.ok(embedded.some((entry) => entry.endsWith('+' + name) || entry === '/' + name), `Brak ${name} w PDF: ${embedded}`)
+    fs.mkdirSync('.cache', { recursive: true })
+    fs.writeFileSync('.cache/linux-libertine-test.pdf', bytes)
+    const sevenLines = { ...sample, flavorDescription: '', description: Array.from({ length: 7 }, (_, i) => `Linia ${i + 1}`).join('\n') }
+    await page.setContent(renderTemplate(template, sevenLines, { fontUrls, images }))
+    await page.evaluate(() => document.fonts.ready)
+    assert.deepEqual(await page.evaluate(fitText), [])
+    assert.equal(await page.locator('[data-text]').evaluate((node) => getComputedStyle(node).fontSize), '12px')
+    await renderer.renderMaterial('pdf', { template, preview: sevenLines })
+    await page.setContent(renderTemplate(template, { ...sevenLines, description: sevenLines.description + '\nLinia 8' }, { fontUrls, images }))
+    await page.evaluate(() => document.fonts.ready)
+    assert.ok((await page.evaluate(fitText)).length > 0)
+    assert.equal(await page.locator('[data-text]').evaluate((node) => getComputedStyle(node).fontSize), '12px')
+    console.log('OK: siedem linii przy 9 pt; ósma linia zgłasza przepełnienie zamiast zmniejszać tekst.')
+    console.log('OK: style stanu/aspektu/cechy, pięć dołączonych odmian Linux Libertine i osadzenie tych samych fontów w PDF. Bez zapisu danych talentów.')
+  } finally { await browser.close() }
+}
+verify().catch((error) => { console.error(error); process.exitCode = 1 })
