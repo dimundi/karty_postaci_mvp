@@ -69,15 +69,16 @@ function installTalentTemplates(app, options = {}) {
     fs.writeFileSync(`${file}.tmp`, `${JSON.stringify(template, null, 2)}\n`); fs.renameSync(`${file}.tmp`, file)
     response.json(read())
   }))
-  const renderMaterial = async (format, input) => {
+  const renderMaterial = async (format, input, sharedBrowser) => {
     if (input.sequenceNumber !== undefined && (!Number.isSafeInteger(input.sequenceNumber) || input.sequenceNumber < 1)) throw new Error('Nieprawidłowy numer kolejny talentu.')
     const template = validateTemplate(input.template), talent = validatePreview(input.preview)
     const images = Object.fromEntries(await Promise.all(Object.entries(ASSETS).map(async ([key, name]) => [key, `data:image/svg+xml;base64,${Buffer.from(await readAsset(name)).toString('base64')}`])))
     const fontUrl = `data:font/ttf;base64,${fs.readFileSync(path.resolve(__dirname, '../src/assets/fonts/NotoSans-Regular.ttf')).toString('base64')}`
     const fontUrls = Object.fromEntries(Object.entries({ regular: 'R', semibold: 'RZ', bold: 'RB', italic: 'RI', boldItalic: 'RBI' }).map(([key, suffix]) => [key, `data:font/ttf;base64,${fs.readFileSync(path.resolve(__dirname, `../src/assets/fonts/LinLibertine_${suffix}.ttf`)).toString('base64')}`]))
-    const browser = await chromium.launch({ executablePath: '/usr/bin/chromium', headless: true, args: ['--no-sandbox', '--disable-dev-shm-usage'] })
+    const browser = sharedBrowser || await chromium.launch({ executablePath: '/usr/bin/chromium', headless: true, args: ['--no-sandbox', '--disable-dev-shm-usage'] })
+    let page
     try {
-      const page = await browser.newPage({ deviceScaleFactor: format === 'png' ? 4 : 1 })
+      page = await browser.newPage({ deviceScaleFactor: format === 'png' ? 4 : 1 })
       await page.setContent(renderTemplate(template, talent, { fontUrls, images }), { waitUntil: 'load' })
       await page.evaluate(() => document.fonts.ready)
       const broken = await page.evaluate(() => [...document.images].some((i) => !i.complete || !i.naturalWidth))
@@ -97,6 +98,31 @@ function installTalentTemplates(app, options = {}) {
         const pdf = await page.pdf({ preferCSSPageSize: true, printBackground: true, margin: { top: 0, right: 0, bottom: 0, left: 0 } })
         return pdf
       }
+    } finally { if (sharedBrowser) await page?.close(); else await browser.close() }
+  }
+  const renderSheet = async (talents) => {
+    const { PDFDocument, PageSizes } = require('pdf-lib')
+    const template = read().template
+    const document = await PDFDocument.create()
+    const [width, height] = PageSizes.A4
+    const margin = 5 * 72 / 25.4, gap = 72 / 25.4
+    const columns = Math.floor((width - 2 * margin + gap) / (template.page.width + gap))
+    const rows = Math.floor((height - 2 * margin + gap) / (template.page.height + gap))
+    const left = (width - columns * template.page.width - (columns - 1) * gap) / 2
+    const browser = await chromium.launch({ executablePath: '/usr/bin/chromium', headless: true, args: ['--no-sandbox', '--disable-dev-shm-usage'] })
+    try {
+      let page
+      for (let index = 0; index < talents.length; index++) {
+        const talent = talents[index]
+        let buffer
+        try { buffer = await renderMaterial('pdf', { template, preview: talent }, browser) }
+        catch (error) { throw new Error(`Talent „${talent.name}”: ${error.message}`) }
+        if (index % (columns * rows) === 0) page = document.addPage(PageSizes.A4)
+        const slot = index % (columns * rows)
+        const [card] = await document.embedPdf(buffer, [0])
+        page.drawPage(card, { x: left + (slot % columns) * (template.page.width + gap), y: height - margin - template.page.height - Math.floor(slot / columns) * (template.page.height + gap), width: template.page.width, height: template.page.height })
+      }
+      return Buffer.from(await document.save())
     } finally { await browser.close() }
   }
   const exportTalent = (format) => endpoint(async (request, response) => {
@@ -105,6 +131,6 @@ function installTalentTemplates(app, options = {}) {
   })
   app.post('/api/talent-template-pdf', exportTalent('pdf'))
   app.post('/api/talent-template-social', exportTalent('png'))
-  return { renderMaterial, readTemplate: read }
+  return { renderMaterial, renderSheet, readTemplate: read }
 }
 module.exports = { installTalentTemplates, validateTemplate, validatePreview }

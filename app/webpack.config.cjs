@@ -208,8 +208,8 @@ module.exports = (_environment, arguments_) => {
         throw new Error('Brak aplikacji Webpack Dev Server.')
       }
       installCardCreator(devServer.app)
-      installTalents(devServer.app)
       const talentRenderer = installTalentTemplates(devServer.app)
+      installTalents(devServer.app, undefined, talentRenderer)
       installMailingList(devServer.app, undefined, talentRenderer)
 
       devServer.app.get('/user', (_request, response) => {

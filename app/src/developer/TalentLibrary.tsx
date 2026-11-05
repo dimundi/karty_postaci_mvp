@@ -43,6 +43,7 @@ export default function TalentLibrary() {
   const [group, setGroup] = useState('')
   const [subgroup, setSubgroup] = useState('')
   const [busy, setBusy] = useState(false)
+  const [exporting, setExporting] = useState(false)
   const [error, setError] = useState('')
   const [message, setMessage] = useState('')
   const [importOpen, setImportOpen] = useState(false)
@@ -150,6 +151,20 @@ export default function TalentLibrary() {
       setLibrary(data); setDraft(data.talents.find((t) => t.id === draft?.id) || data.talents[0] || null); setPreview(null)
     } catch (e) { setError((e as Error).message) } finally { setBusy(false) }
   }
+  async function exportPdf() {
+    if (!library || !group || busy || exporting) return
+    if (dirty) { setError('Zapisz lub odrzuć zmiany talentu przed eksportem.'); return }
+    setBusy(true); setExporting(true); setError(''); setMessage('')
+    try {
+      const response = await fetch('/api/talents/export-pdf', jsonPost({ group, subgroup, revision: library.revision }))
+      if (!response.ok) { const result = await response.json(); throw new Error(result.error || 'Nie udało się wyeksportować PDF.') }
+      const url = URL.createObjectURL(await response.blob())
+      const link = document.createElement('a')
+      link.href = url; link.download = 'talenty-a4.pdf'; document.body.appendChild(link); link.click(); link.remove()
+      window.setTimeout(() => URL.revokeObjectURL(url), 60000)
+      setMessage('Wyeksportowano talenty do PDF A4.')
+    } catch (e) { setError((e as Error).message) } finally { setBusy(false); setExporting(false) }
+  }
   async function prepareImport() {
     if (!file || !importGroup.trim() || (importSource === 'googledoc' && !importSubgroup.trim())) return
     setBusy(true); setError(''); setMessage(''); setPreview(null)
@@ -182,6 +197,7 @@ export default function TalentLibrary() {
           <p>Wewnętrzna lista talentów · {library?.talents.length ?? '…'} talentów</p>
         </div>
         <div className="talent-actions">
+          <button disabled={busy || !library || !group} title={group ? 'Eksport zapisanych talentów z wybranej grupy i podgrupy' : 'Najpierw wybierz grupę w filtrach'} onClick={() => void exportPdf()}>{exporting ? 'Eksportowanie PDF…' : 'Eksportuj PDF A4'}</button>
           <button disabled={busy || !library} onClick={createTalent}>Nowy talent</button>
           <button disabled={busy} onClick={() => void refresh()}>Odśwież listę</button>
           <button className="talent-primary" disabled={busy || !library} onClick={() => {

@@ -4,6 +4,10 @@ Adres: [Przegląd i import talentów](http://localhost:8080/#dev-talents). Wejś
 
 ## Wewnętrzna lista
 
+- „Eksportuj PDF A4” eksportuje zapisane talenty z grupy i podgrupy wybranych w filtrach. Grupa jest wymagana; można wybrać wszystkie podgrupy lub „Bez podgrupy”. Wyszukiwarka tekstowa nie ogranicza eksportu. Niezapisane zmiany blokują eksport. Kolejność odpowiada bibliotece JSON.
+- PDF: A4 pionowo, oryginalne rozmiary kart, 3 kolumny i 7 wierszy (21 kart na stronie), margines minimum 5 mm i odstęp 1 mm. Kolejne talenty trafiają na następne strony. Wspólny szablon zachowuje fonty, formatowanie i ikony. Przepełniony tekst blokuje cały eksport z nazwą talentu. Eksport nie zmienia biblioteki, kodów ani przypisań mailingowych.
+- Test eksportu: `docker compose exec app node scripts/verify-talent-sheet.cjs`. Sprawdza pobranie PDF w przeglądarce, filtry, format A4 i podział 22 kart na strony 21+1, na tymczasowej bibliotece.
+
 - „Nowy talent” otwiera pusty formularz, bez zapisu do biblioteki. Grupę i podgrupę przejmuje z filtrów; bez filtra grupy proponuje `Dary Ciemności`. Flagi są wyłączone, użycia wynoszą 0. „Zapisz talent” nadaje UUID i dodaje rekord z pustym kodem. Obowiązują walidacja pól, kontrola duplikatów i rewizji oraz kopia `.bak`. Odrzucenie zmian usuwa niezapisany formularz.
 
 - Przyciski formatowania opisu pomijają białe znaki na początku i końcu zaznaczenia. Spacje pozostają poza znacznikami; zaznaczenie samych białych znaków niczego nie zmienia. Bez zaznaczenia nadal wstawiana jest pusta para znaczników.

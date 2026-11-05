@@ -107,7 +107,25 @@ async function body(request) {
   }
   return Buffer.concat(chunks)
 }
-function installTalents(app, file = '/cardTemplates/talenty/talenty.json') {
+function installTalents(app, file = '/cardTemplates/talenty/talenty.json', renderer) {
+  let exporting = false
+  app.post('/api/talents/export-pdf', async (request, response) => {
+    let acquired = false
+    try {
+      const input = JSON.parse((await body(request)).toString('utf8'))
+      if (exporting) throw new Error('Trwa już eksport PDF. Poczekaj na jego zakończenie.')
+      if (!renderer?.renderSheet) throw new Error('Generator PDF jest niedostępny.')
+      const current = load()
+      if (input.revision !== current.revision) throw new Error('Lista zmieniła się. Odśwież ją przed eksportem.')
+      if (typeof input.group !== 'string' || !input.group || typeof input.subgroup !== 'string') throw new Error('Wybierz grupę do eksportu.')
+      const talents = current.talents.filter((t) => t.group === input.group && (!input.subgroup || (input.subgroup === '__none' ? t.subgroup === null : t.subgroup === input.subgroup)))
+      if (!talents.length) throw new Error('Brak talentów w wybranej grupie i podgrupie.')
+      exporting = true; acquired = true
+      const buffer = await renderer.renderSheet(talents)
+      response.type('application/pdf').set('Content-Disposition', 'attachment; filename="talenty-a4.pdf"').send(buffer)
+    } catch (error) { response.status(400).json({ error: error.message || 'Nie udało się wyeksportować PDF.' }) }
+    finally { if (acquired) exporting = false }
+  })
   function importOptions(input) {
     const source = input.source || 'legacy'
     if (!['legacy', 'googledoc'].includes(source)) throw new Error('Nieznana procedura importu.')
